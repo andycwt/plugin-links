@@ -51,7 +51,7 @@ const { data: groups } = useLinkGroupFetch();
 
 const groupOptions = computed(() => {
   const options = [
-    { label: "无分组", value: "" },
+    { label: "無分組", value: "" },
     ...(groups.value || []).flatMap((group) => {
       const name = group.metadata?.name;
       if (!name) {
@@ -108,7 +108,7 @@ const handleGetLinkDetail = async () => {
     data.value.logo = linkDetail.icon;
     data.value.description = linkDetail.description;
 
-    Toast.info("获取链接详情成功");
+    Toast.info("獲取連結詳情成功");
   } finally {
     isFetchingLinkDetail.value = false;
   }
@@ -132,10 +132,10 @@ const handleDiscoverFeed = async () => {
       const feedUrls = mergeFeedUrls(parseFeedUrlsText(rssFeedUrlsText.value), discoveredFeedUrls);
       data.value.rss.feedUrls = feedUrls;
       rssFeedUrlsText.value = feedUrlsToText(feedUrls);
-      Toast.success(`发现 ${discoveredFeedUrls.length} 个订阅地址`);
+      Toast.success(`發現 ${discoveredFeedUrls.length} 個訂閱地址`);
       return;
     }
-    Toast.info("未发现订阅地址");
+    Toast.info("未發現訂閱地址");
   } catch {
     // Halo's API interceptor shows request failure toasts.
   } finally {
@@ -215,7 +215,7 @@ async function onSubmit() {
   data.value.rss.feedUrls = feedUrls;
   rssFeedUrlsText.value = feedUrlsToText(feedUrls);
   if (data.value.rss.enabled && !feedUrls.length) {
-    Toast.error("请至少填写一个订阅地址");
+    Toast.error("請至少填寫一個訂閱地址");
     return;
   }
 
@@ -252,7 +252,7 @@ function handleGroupCreated(group: LinkGroup) {
         <div class=":uno: md:grid md:grid-cols-4 md:gap-6">
           <div class=":uno: md:col-span-1">
             <div class=":uno: sticky top-0">
-              <span class=":uno: text-base text-gray-900 font-medium"> AI 识别 </span>
+              <span class=":uno: text-base text-gray-900 font-medium"> AI 識別 </span>
             </div>
           </div>
           <div class=":uno: mt-5 md:col-span-3 md:mt-0">
@@ -268,17 +268,17 @@ function handleGroupCreated(group: LinkGroup) {
       <div class=":uno: md:grid md:grid-cols-4 md:gap-6">
         <div class=":uno: md:col-span-1">
           <div class=":uno: sticky top-0">
-            <span class=":uno: text-base text-gray-900 font-medium"> 常规 </span>
+            <span class=":uno: text-base text-gray-900 font-medium"> 常規 </span>
           </div>
         </div>
         <div class=":uno: mt-5 md:col-span-3 md:mt-0 divide-y divide-gray-100">
-          <FormKit type="url" name="url" v-model="data.url" validation="required" label="网站地址">
+          <FormKit type="url" name="url" v-model="data.url" validation="required" label="網站地址">
             <template #suffix>
               <button
                 type="button"
-                aria-label="获取网站信息"
+                aria-label="獲取網站資訊"
                 v-tooltip="{
-                  content: '获取网站信息',
+                  content: '獲取網站資訊',
                 }"
                 class=":uno: group h-full flex cursor-pointer items-center border-0 bg-transparent px-3 transition-all"
                 @click="handleGetLinkDetail"
@@ -293,16 +293,16 @@ function handleGroupCreated(group: LinkGroup) {
             name="displayName"
             v-model="data.displayName"
             validation="required"
-            label="网站名称"
+            label="網站名稱"
           ></FormKit>
           <FormKit type="attachment" name="logo" v-model="data.logo" label="Logo"></FormKit>
-          <FormKit type="select" name="groupName" v-model="data.groupName" :options="groupOptions" label="分组">
+          <FormKit type="select" name="groupName" v-model="data.groupName" :options="groupOptions" label="分組">
             <template #suffix>
               <button
                 type="button"
-                aria-label="新建分组"
+                aria-label="新建分組"
                 v-tooltip="{
-                  content: '新建分组',
+                  content: '新建分組',
                 }"
                 class=":uno: group h-full flex cursor-pointer items-center border-0 bg-transparent px-3 transition-all"
                 @click="groupCreationModalVisible = true"
@@ -322,7 +322,7 @@ function handleGroupCreated(group: LinkGroup) {
       <div class=":uno: md:grid md:grid-cols-4 md:gap-6">
         <div class=":uno: md:col-span-1">
           <div class=":uno: sticky top-0">
-            <span class=":uno: text-base text-gray-900 font-medium"> 链接检测 </span>
+            <span class=":uno: text-base text-gray-900 font-medium"> 連結檢測 </span>
           </div>
         </div>
         <div class=":uno: mt-5 md:col-span-3 md:mt-0 divide-y divide-gray-100">
@@ -330,8 +330,8 @@ function handleGroupCreated(group: LinkGroup) {
             type="url"
             name="backlinkScanUrl"
             v-model="data.verification.backlinkScanUrl"
-            label="反链检测页面"
-            help="填写对方固定放置本站链接的页面，留空则不检测反链"
+            label="反鏈檢測頁面"
+            help="填寫對方固定放置本站連結的頁面，留空則不檢測反鏈"
             placeholder="https://example.com/links"
           ></FormKit>
         </div>
@@ -344,18 +344,18 @@ function handleGroupCreated(group: LinkGroup) {
       <div class=":uno: md:grid md:grid-cols-4 md:gap-6">
         <div class=":uno: md:col-span-1">
           <div class=":uno: sticky top-0">
-            <span class=":uno: text-base text-gray-900 font-medium"> RSS 订阅 </span>
+            <span class=":uno: text-base text-gray-900 font-medium"> RSS 訂閱 </span>
           </div>
         </div>
         <div class=":uno: mt-5 md:col-span-3 md:mt-0 divide-y divide-gray-100">
-          <FormKit type="checkbox" name="rssEnabled" v-model="data.rss.enabled" label="启用 RSS 订阅"></FormKit>
+          <FormKit type="checkbox" name="rssEnabled" v-model="data.rss.enabled" label="啟用 RSS 訂閱"></FormKit>
           <FormKit
             v-if="data.rss.enabled"
             type="code"
             name="rssFeedUrlsText"
             v-model="rssFeedUrlsText"
-            label="订阅地址"
-            help="每行一个 RSS 或 Atom 地址"
+            label="訂閱地址"
+            help="每行一個 RSS 或 Atom 地址"
             language="yaml"
             height="70px"
             placeholder="https://example.com/rss.xml&#10;https://example.com/atom.xml"
@@ -366,7 +366,7 @@ function handleGroupCreated(group: LinkGroup) {
               <template #icon>
                 <Rss2FillIcon class=":uno: size-4 text-gray-500" />
               </template>
-              发现订阅地址
+              發現訂閱地址
             </VButton>
           </div>
         </div>
@@ -381,7 +381,7 @@ function handleGroupCreated(group: LinkGroup) {
   <div class=":uno: md:grid md:grid-cols-4 md:gap-6">
     <div class=":uno: md:col-span-1">
       <div class=":uno: sticky top-0">
-        <span class=":uno: text-base text-gray-900 font-medium"> 元数据 </span>
+        <span class=":uno: text-base text-gray-900 font-medium"> 後設資料 </span>
       </div>
     </div>
     <div class=":uno: mt-5 md:col-span-3 md:mt-0 divide-y divide-gray-100">

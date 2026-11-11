@@ -3,14 +3,14 @@ import { commentPlainText, htmlToPlainText, plainTextToSafeHtml } from "../comme
 
 describe("htmlToPlainText", () => {
   it("removes html tags and keeps readable block breaks", () => {
-    expect(htmlToPlainText("<p>站点：<strong>Halo</strong></p><p>地址：https://halo.run</p>")).toBe(
-      "站点：Halo\n地址：https://halo.run",
+    expect(htmlToPlainText("<p>站點：<strong>Halo</strong></p><p>地址：https://halo.run</p>")).toBe(
+      "站點：Halo\n地址：https://halo.run",
     );
   });
 
   it("keeps anchor text without exposing its html markup", () => {
-    expect(htmlToPlainText('<p>博客地址：<a target="_blank" href="https://halo.run">https://halo.run</a></p>')).toBe(
-      "博客地址：https://halo.run",
+    expect(htmlToPlainText('<p>部落格地址：<a target="_blank" href="https://halo.run">https://halo.run</a></p>')).toBe(
+      "部落格地址：https://halo.run",
     );
   });
 
@@ -36,6 +36,6 @@ describe("plainTextToSafeHtml", () => {
   });
 
   it("keeps plain text untouched", () => {
-    expect(plainTextToSafeHtml("已通过，欢迎交换友链！")).toBe("已通过，欢迎交换友链！");
+    expect(plainTextToSafeHtml("已透過，歡迎交換友鏈！")).toBe("已透過，歡迎交換友鏈！");
   });
 });

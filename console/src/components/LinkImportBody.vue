@@ -41,7 +41,7 @@ watch(
 );
 
 const groupOptions = computed(() => [
-  { value: "", label: "未分组" },
+  { value: "", label: "未分組" },
   ...(groups.value || []).flatMap((group) => {
     const name = group.metadata?.name;
     if (!name) {
@@ -57,14 +57,14 @@ const groupOptions = computed(() => [
 async function handleParse() {
   const parsed = await parseInput();
   if (!parsed) {
-    Toast.warning("请输入链接列表");
+    Toast.warning("請輸入連結列表");
   }
 }
 
 function handleImport() {
   const itemsToImport = getImportableItems();
   if (itemsToImport.length === 0) {
-    Toast.warning("没有可导入的链接");
+    Toast.warning("沒有可匯入的連結");
     return;
   }
   emit("submit", { items: itemsToImport, groupName: selectedGroupName.value });
@@ -76,33 +76,33 @@ function handleImport() {
     <div class=":uno: flex-1 overflow-y-auto">
       <div v-show="step === 'paste'" class=":uno: space-y-4">
         <div v-if="!group">
-          <FormKit v-model="selectedGroupName" type="select" label="导入到分组" :options="groupOptions" />
+          <FormKit v-model="selectedGroupName" type="select" label="匯入到分組" :options="groupOptions" />
         </div>
 
         <FormKit
           v-model="rawText"
           type="code"
-          label="链接列表"
-          help="每行一个，格式：URL|名称|描述|图标"
+          label="連結列表"
+          help="每行一個，格式：URL|名稱|描述|圖示"
           language="yaml"
           height="260px"
-          placeholder="https://example.com|示例网站|这是一个示例网站|https://example.com/favicon.ico"
+          placeholder="https://example.com|示例網站|這是一個示例網站|https://example.com/favicon.ico"
           :classes="{ inner: '!max-w-none' }"
         />
 
         <FormKit
           v-model="enableScraping"
           type="checkbox"
-          label="在线解析（自动抓取标题、描述、图标）"
-          help="解析时间较长，请耐心等待"
+          label="線上解析（自動抓取標題、描述、圖示）"
+          help="解析時間較長，請耐心等待"
         />
       </div>
 
       <div v-show="step === 'preview'" class=":uno: space-y-4">
         <div class=":uno: rounded-md bg-gray-50 px-3 py-2 text-sm text-gray-600">
-          共解析 {{ previewSummary.total }} 条，在线解析 {{ previewSummary.scraped }} 条，手动
-          {{ previewSummary.manual }} 条，失败 {{ previewSummary.failed }} 条，已选
-          {{ previewSummary.selected }} 条，可导入 {{ importableCount }} 条
+          共解析 {{ previewSummary.total }} 條，線上解析 {{ previewSummary.scraped }} 條，手動
+          {{ previewSummary.manual }} 條，失敗 {{ previewSummary.failed }} 條，已選
+          {{ previewSummary.selected }} 條，可匯入 {{ importableCount }} 條
         </div>
 
         <LinkImportPreviewTable v-model:items="parsedItems" />
@@ -116,7 +116,7 @@ function handleImport() {
       <template v-else>
         <VSpace>
           <VButton type="secondary" :loading="props.isImporting" @click="handleImport">
-            确认导入（{{ importableCount }}）
+            確認匯入（{{ importableCount }}）
           </VButton>
           <VButton :disabled="props.isImporting" @click="backToPaste">返回</VButton>
         </VSpace>

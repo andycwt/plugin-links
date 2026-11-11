@@ -13,7 +13,7 @@ const emit = defineEmits<{
   (event: "open"): void;
 }>();
 
-const tooltipContent = computed(() => `${props.label}：${props.description}。点击查看详情`);
+const tooltipContent = computed(() => `${props.label}：${props.description}。點選檢視詳情`);
 </script>
 
 <template>

@@ -106,7 +106,7 @@ const { mutate, isPending } = useMutation({
     });
   },
   onSuccess: (_, data) => {
-    Toast.success("编辑链接成功");
+    Toast.success("編輯連結成功");
     modal.value?.close();
     queryClient.invalidateQueries({ queryKey: [QK_LINK_GROUPS] });
     queryClient.invalidateQueries({ queryKey: [QK_GROUPS_WITH_LINKS] });
@@ -127,8 +127,8 @@ const { mutate, isPending } = useMutation({
 function onSubmit(data: LinkFormState) {
   if (isUnsubscribe(data)) {
     Dialog.warning({
-      title: "是否确认关闭 RSS 订阅？",
-      description: "关闭后将永久删除该链接的全部 RSS 缓存，包括收藏、稍后阅读和已隐藏的文章，且无法恢复。",
+      title: "是否確認關閉 RSS 訂閱？",
+      description: "關閉後將永久刪除該連結的全部 RSS 快取，包括收藏、稍後閱讀和已隱藏的文章，且無法恢復。",
       confirmType: "danger",
       onConfirm: () => mutate(data),
     });
@@ -166,15 +166,15 @@ function sameFeedUrls(left: string[], right: string[]) {
 
 function handleDelete() {
   Dialog.warning({
-    title: "是否确认删除当前的链接？",
-    description: "删除之后将无法恢复。",
+    title: "是否確認刪除當前的連結？",
+    description: "刪除之後將無法恢復。",
     confirmType: "danger",
     onConfirm: async () => {
       await linksCoreApiClient.link.deleteLink({
         name: props.link.metadata.name,
       });
 
-      Toast.success("删除成功");
+      Toast.success("刪除成功");
 
       modal.value?.close();
       queryClient.invalidateQueries({ queryKey: [QK_GROUPS_WITH_LINKS] });
@@ -185,7 +185,7 @@ function handleDelete() {
 }
 </script>
 <template>
-  <VModal :centered="false" title="编辑链接" ref="modal" :mount-to-body="true" :width="650" @close="emit('close')">
+  <VModal :centered="false" title="編輯連結" ref="modal" :mount-to-body="true" :width="650" @close="emit('close')">
     <template #actions>
       <slot name="append-actions" />
     </template>
@@ -213,10 +213,10 @@ function handleDelete() {
       <div class=":uno: flex items-center justify-between">
         <VSpace>
           <!-- @vue-ignore -->
-          <VButton :loading="isPending" type="secondary" @click="$formkit.submit('link-form')"> 保存 </VButton>
+          <VButton :loading="isPending" type="secondary" @click="$formkit.submit('link-form')"> 儲存 </VButton>
           <VButton @click="modal?.close()">取消</VButton>
         </VSpace>
-        <VButton type="danger" ghost @click="handleDelete">删除</VButton>
+        <VButton type="danger" ghost @click="handleDelete">刪除</VButton>
       </div>
     </template>
   </VModal>

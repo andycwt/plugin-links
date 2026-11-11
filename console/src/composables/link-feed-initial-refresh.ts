@@ -44,7 +44,7 @@ export async function refreshInitialLinkFeed({
 
   try {
     await feedApi.refreshLinkFeed({ name: linkName });
-    toast.success("RSS 已自动获取");
+    toast.success("RSS 已自動獲取");
   } catch {
     // Halo's API interceptor shows request failure toasts.
   } finally {

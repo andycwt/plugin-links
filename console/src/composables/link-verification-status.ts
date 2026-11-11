@@ -15,26 +15,26 @@ export function accessVerificationStatusMeta(link: Link): LinkVerificationStatus
     case "CHECKING":
       return {
         tone: "warning",
-        label: "访问检测中",
-        description: "正在检测链接访问状态",
+        label: "訪問檢測中",
+        description: "正在檢測連結訪問狀態",
       };
     case "ACCESSIBLE":
       return {
         tone: "success",
-        label: "访问正常",
-        description: access.statusCode ? `访问正常，HTTP ${access.statusCode}` : "访问正常",
+        label: "訪問正常",
+        description: access.statusCode ? `訪問正常，HTTP ${access.statusCode}` : "訪問正常",
       };
     case "INACCESSIBLE":
       return {
         tone: "danger",
-        label: "访问异常",
-        description: access.error || (access.statusCode ? `访问异常，HTTP ${access.statusCode}` : "访问异常"),
+        label: "訪問異常",
+        description: access.error || (access.statusCode ? `訪問異常，HTTP ${access.statusCode}` : "訪問異常"),
       };
     default:
       return {
         tone: "muted",
-        label: "访问未检测",
-        description: "尚未检测链接访问状态",
+        label: "訪問未檢測",
+        description: "尚未檢測連結訪問狀態",
       };
   }
 }
@@ -45,38 +45,38 @@ export function backlinkVerificationStatusMeta(link: Link): LinkVerificationStat
     case "CHECKING":
       return {
         tone: "warning",
-        label: "反链检测中",
-        description: "正在扫描反链页面",
+        label: "反鏈檢測中",
+        description: "正在掃描反鏈頁面",
       };
     case "FOUND":
       return {
         tone: "success",
-        label: "反链正常",
-        description: backlink.matchedUrl ? `已发现反链：${backlink.matchedUrl}` : "已发现反链",
+        label: "反鏈正常",
+        description: backlink.matchedUrl ? `已發現反鏈：${backlink.matchedUrl}` : "已發現反鏈",
       };
     case "MISSING":
       return {
         tone: "danger",
-        label: "未发现反链",
-        description: backlink.scanUrl ? `未在 ${backlink.scanUrl} 发现反链` : "未发现反链",
+        label: "未發現反鏈",
+        description: backlink.scanUrl ? `未在 ${backlink.scanUrl} 發現反鏈` : "未發現反鏈",
       };
     case "FAILED":
       return {
         tone: "danger",
-        label: "反链检测失败",
-        description: backlink.error || "反链检测失败",
+        label: "反鏈檢測失敗",
+        description: backlink.error || "反鏈檢測失敗",
       };
     case "NOT_CONFIGURED":
       return {
         tone: "muted",
-        label: "未配置反链",
-        description: "未配置反链检测页面",
+        label: "未配置反鏈",
+        description: "未配置反鏈檢測頁面",
       };
     default:
       return {
         tone: "muted",
-        label: link.spec?.verification?.backlinkScanUrl ? "反链未检测" : "未配置反链",
-        description: link.spec?.verification?.backlinkScanUrl ? "尚未检测反链状态" : "未配置反链检测页面",
+        label: link.spec?.verification?.backlinkScanUrl ? "反鏈未檢測" : "未配置反鏈",
+        description: link.spec?.verification?.backlinkScanUrl ? "尚未檢測反鏈狀態" : "未配置反鏈檢測頁面",
       };
   }
 }

@@ -134,8 +134,8 @@ async function handleVerifySelectedLinks() {
 
 function handleDeleteInBatch() {
   Dialog.warning({
-    title: "是否确认删除选中的链接？",
-    description: "删除之后将无法恢复。",
+    title: "是否確認刪除選中的連結？",
+    description: "刪除之後將無法恢復。",
     confirmType: "danger",
     onConfirm: async () => {
       const chunks = chunk(selectedLinkNames.value, 5);
@@ -150,7 +150,7 @@ function handleDeleteInBatch() {
         );
       }
 
-      Toast.success("删除成功");
+      Toast.success("刪除成功");
       queryClient.invalidateQueries({ queryKey: [QK_GROUPS_WITH_LINKS] });
       await invalidateLinkFeedItemSummary(queryClient);
       enabledSelect.value = false;
@@ -165,8 +165,8 @@ function handleMoveToGroup(group: LinkGroupVo) {
     return;
   }
   Dialog.warning({
-    title: "移动到分组",
-    description: `确认将选中的链接移动到${group.spec?.displayName}分组吗？`,
+    title: "移動到分組",
+    description: `確認將選中的連結移動到${group.spec?.displayName}分組嗎？`,
     confirmType: "danger",
     onConfirm: async () => {
       const chunks = chunk(selectedLinkNames.value, 5);
@@ -182,7 +182,7 @@ function handleMoveToGroup(group: LinkGroupVo) {
         );
       }
 
-      Toast.success("移动成功");
+      Toast.success("移動成功");
       queryClient.invalidateQueries({ queryKey: [QK_LINK_GROUPS] });
       queryClient.invalidateQueries({ queryKey: [QK_GROUPS_WITH_LINKS] });
       enabledSelect.value = false;
@@ -192,10 +192,10 @@ function handleMoveToGroup(group: LinkGroupVo) {
 }
 
 function handleDelete({ deleteLinks }: { deleteLinks: boolean }) {
-  const title = deleteLinks ? "删除分组及链接" : "仅删除分组";
+  const title = deleteLinks ? "刪除分組及連結" : "僅刪除分組";
   const description = deleteLinks
-    ? `将同时删除该分组下所有链接，此操作不可恢复。`
-    : `该分组下的链接将变为未分组，此操作不可恢复。`;
+    ? `將同時刪除該分組下所有連結，此操作不可恢復。`
+    : `該分組下的連結將變為未分組，此操作不可恢復。`;
 
   Dialog.warning({
     title,
@@ -209,7 +209,7 @@ function handleDelete({ deleteLinks }: { deleteLinks: boolean }) {
         name: group.value.metadata.name,
         deleteLinks,
       });
-      Toast.success("删除成功");
+      Toast.success("刪除成功");
       queryClient.invalidateQueries({ queryKey: [QK_LINK_GROUPS] });
       queryClient.invalidateQueries({ queryKey: [QK_GROUPS_WITH_LINKS] });
       if (deleteLinks) {
@@ -226,21 +226,21 @@ function handleDelete({ deleteLinks }: { deleteLinks: boolean }) {
       <div class=":uno: w-full flex flex-wrap items-center justify-between gap-2 px-4 py-2">
         <div class=":uno: flex flex-wrap items-center gap-3">
           <div class=":uno: text-sm text-gray-900 font-semibold">
-            {{ group?.spec?.displayName || "未分组" }}（{{ links.length }}）
+            {{ group?.spec?.displayName || "未分組" }}（{{ links.length }}）
           </div>
           <VSpace v-if="enabledSelect" class=":uno: flex-wrap">
-            <VButton size="sm" @click="handleSelectAll">全选</VButton>
-            <VButton size="sm" @click="selectedLinkNames.length = 0">清空选择</VButton>
+            <VButton size="sm" @click="handleSelectAll">全選</VButton>
+            <VButton size="sm" @click="selectedLinkNames.length = 0">清空選擇</VButton>
             <VButton
               size="sm"
               :disabled="selectedLinkNames.length === 0"
               :loading="isVerifyingSelectedLinks"
               @click="handleVerifySelectedLinks"
             >
-              检测
+              檢測
             </VButton>
             <VDropdown>
-              <VButton size="sm" :disabled="selectedLinkNames.length === 0 || !otherGroups?.length">移动</VButton>
+              <VButton size="sm" :disabled="selectedLinkNames.length === 0 || !otherGroups?.length">移動</VButton>
               <template #popper>
                 <VDropdownItem
                   @click="handleMoveToGroup(item)"
@@ -253,7 +253,7 @@ function handleDelete({ deleteLinks }: { deleteLinks: boolean }) {
               </template>
             </VDropdown>
             <VButton size="sm" type="danger" :disabled="selectedLinkNames.length === 0" @click="handleDeleteInBatch">
-              删除
+              刪除
             </VButton>
             <VButton size="sm" @click="enabledSelect = false">取消</VButton>
           </VSpace>
@@ -264,19 +264,19 @@ function handleDelete({ deleteLinks }: { deleteLinks: boolean }) {
               </VButton>
               <template #popper>
                 <VDropdownItem v-if="links.length" @click="enabledSort = true">排序</VDropdownItem>
-                <VDropdownItem v-if="links.length" @click="enabledSelect = true">批量选择</VDropdownItem>
+                <VDropdownItem v-if="links.length" @click="enabledSelect = true">批次選擇</VDropdownItem>
                 <VDropdownItem v-if="links.length" @click="handleVerifyGroup">
-                  {{ isVerifyingGroup ? "检测中..." : "检测本组" }}
+                  {{ isVerifyingGroup ? "檢測中..." : "檢測本組" }}
                 </VDropdownItem>
-                <VDropdownItem v-if="group" @click="groupEditingModalVisible = true">编辑分组</VDropdownItem>
+                <VDropdownItem v-if="group" @click="groupEditingModalVisible = true">編輯分組</VDropdownItem>
                 <VDropdown>
-                  <VDropdownItem v-if="group" type="danger">删除分组</VDropdownItem>
+                  <VDropdownItem v-if="group" type="danger">刪除分組</VDropdownItem>
                   <template #popper>
                     <VDropdownItem v-if="group" type="danger" @click="handleDelete({ deleteLinks: false })">
-                      仅删除分组
+                      僅刪除分組
                     </VDropdownItem>
                     <VDropdownItem v-if="group" type="danger" @click="handleDelete({ deleteLinks: true })">
-                      删除分组及链接
+                      刪除分組及連結
                     </VDropdownItem>
                   </template>
                 </VDropdown>
@@ -289,7 +289,7 @@ function handleDelete({ deleteLinks }: { deleteLinks: boolean }) {
         </div>
       </div>
     </template>
-    <div v-if="!links.length" class=":uno: px-4 py-3 text-center text-sm text-gray-500">此分组下暂无链接</div>
+    <div v-if="!links.length" class=":uno: px-4 py-3 text-center text-sm text-gray-500">此分組下暫無連結</div>
     <div
       class=":uno: grid grid-cols-1 gap-2.5 2xl:grid-cols-5 3xl:grid-cols-6 4xl:grid-cols-7 5xl:grid-cols-8 lg:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4"
       v-else

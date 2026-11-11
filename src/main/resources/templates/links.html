@@ -4,7 +4,7 @@
   th:replace="~{layout :: html(head = ~{::head}, content = ~{::content})}"
 >
   <th:block th:fragment="head">
-    <title th:text="|${linksTitle} - ${site.title}|">链接</title>
+    <title th:text="|${linksTitle} - ${site.title}|">連結</title>
     <style>
       .links nav {
         margin: 1rem 0 1.5rem;
@@ -36,9 +36,9 @@
 
   <th:block th:fragment="content">
     <section class="links">
-      <h1 th:text="${linksTitle}">链接</h1>
+      <h1 th:text="${linksTitle}">連結</h1>
 
-      <nav aria-label="链接分组">
+      <nav aria-label="連結分組">
         <a th:href="@{/links}" th:classappend="${group == null} ? 'active'">全部</a>
         <a
           th:each="item : ${simpleGroups}"
@@ -57,7 +57,7 @@
               alt=""
               loading="lazy"
             />
-            <span th:text="${link.spec.displayName}">链接名称</span>
+            <span th:text="${link.spec.displayName}">連結名稱</span>
           </a>
           <p
             th:if="${not #strings.isEmpty(link.spec.description)}"
@@ -65,7 +65,7 @@
           ></p>
         </li>
       </ul>
-      <p th:unless="${not #lists.isEmpty(links)}">暂无链接</p>
+      <p th:unless="${not #lists.isEmpty(links)}">暫無連結</p>
     </section>
   </th:block>
 </html>

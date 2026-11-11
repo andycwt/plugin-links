@@ -53,7 +53,7 @@ describe("aggregateLinkFeedStatusMeta", () => {
     ]);
 
     expect(meta.tone).toBe("warning");
-    expect(meta.label).toBe("1 个异常");
+    expect(meta.label).toBe("1 個異常");
   });
 
   it("summarizes all-success states", () => {

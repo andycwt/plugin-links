@@ -45,10 +45,10 @@ describe("buildLinkApplicationCleanupParams", () => {
 
 describe("linkApplicationStatusMeta", () => {
   it("labels all lifecycle states", () => {
-    expect(linkApplicationStatusMeta("PENDING")).toEqual({ label: "待审核", tagType: "warning" });
-    expect(linkApplicationStatusMeta("APPROVING")).toEqual({ label: "审批中", tagType: "primary" });
-    expect(linkApplicationStatusMeta("APPROVED")).toEqual({ label: "已通过", tagType: "success" });
-    expect(linkApplicationStatusMeta("REJECTED")).toEqual({ label: "已拒绝", tagType: "danger" });
+    expect(linkApplicationStatusMeta("PENDING")).toEqual({ label: "待稽核", tagType: "warning" });
+    expect(linkApplicationStatusMeta("APPROVING")).toEqual({ label: "審批中", tagType: "primary" });
+    expect(linkApplicationStatusMeta("APPROVED")).toEqual({ label: "已透過", tagType: "success" });
+    expect(linkApplicationStatusMeta("REJECTED")).toEqual({ label: "已拒絕", tagType: "danger" });
   });
 
   it("keeps unknown statuses readable", () => {
@@ -134,51 +134,51 @@ describe("linkApplicationEffectiveFields", () => {
 describe("linkApplicationRejectDescription", () => {
   it("warns that form-origin rejections block resubmission while the record exists", () => {
     const description = linkApplicationRejectDescription(application({ originType: "FORM" }));
-    expect(description).toContain("无法再次提交申请");
-    expect(description).toContain("删除拒绝记录可解除限制");
+    expect(description).toContain("無法再次提交申請");
+    expect(description).toContain("刪除拒絕記錄可解除限制");
   });
 
   it("does not claim comment-origin URLs can never be submitted again", () => {
     const description = linkApplicationRejectDescription(application({ originType: "COMMENT" }));
-    expect(description).toContain("仍可通过表单再次提交");
-    expect(description).not.toContain("无法再次提交申请");
+    expect(description).toContain("仍可透過表單再次提交");
+    expect(description).not.toContain("無法再次提交申請");
   });
 });
 
 describe("linkApplicationCleanupDescription", () => {
   it("uses the server total and always notes approving applications are kept", () => {
     const description = linkApplicationCleanupDescription({ total: 8 });
-    expect(description).toContain("全部 8 条申请记录");
-    expect(description).toContain("审批中的申请会保留");
+    expect(description).toContain("全部 8 條申請記錄");
+    expect(description).toContain("審批中的申請會保留");
   });
 
   it("warns about resubmission when the filter can include pending or rejected form applications", () => {
-    expect(linkApplicationCleanupDescription({ total: 1 })).toContain("再次提交申请");
-    expect(linkApplicationCleanupDescription({ total: 1, status: "PENDING" })).toContain("再次提交申请");
+    expect(linkApplicationCleanupDescription({ total: 1 })).toContain("再次提交申請");
+    expect(linkApplicationCleanupDescription({ total: 1, status: "PENDING" })).toContain("再次提交申請");
     expect(linkApplicationCleanupDescription({ total: 1, status: "REJECTED", originType: "FORM" })).toContain(
-      "再次提交申请",
+      "再次提交申請",
     );
-    expect(linkApplicationCleanupDescription({ total: 1, status: "APPROVED" })).not.toContain("再次提交申请");
-    expect(linkApplicationCleanupDescription({ total: 1, originType: "COMMENT" })).not.toContain("再次提交申请");
+    expect(linkApplicationCleanupDescription({ total: 1, status: "APPROVED" })).not.toContain("再次提交申請");
+    expect(linkApplicationCleanupDescription({ total: 1, originType: "COMMENT" })).not.toContain("再次提交申請");
   });
 
   it("notes that deleting approved applications keeps the formal link", () => {
-    expect(linkApplicationCleanupDescription({ total: 1 })).toContain("不会删除已创建的链接");
-    expect(linkApplicationCleanupDescription({ total: 1, status: "APPROVED" })).toContain("不会删除已创建的链接");
-    expect(linkApplicationCleanupDescription({ total: 1, status: "REJECTED" })).not.toContain("不会删除已创建的链接");
+    expect(linkApplicationCleanupDescription({ total: 1 })).toContain("不會刪除已建立的連結");
+    expect(linkApplicationCleanupDescription({ total: 1, status: "APPROVED" })).toContain("不會刪除已建立的連結");
+    expect(linkApplicationCleanupDescription({ total: 1, status: "REJECTED" })).not.toContain("不會刪除已建立的連結");
   });
 });
 
 describe("linkApplicationCleanupSummary", () => {
   it("summarizes matched and deleted counts", () => {
     expect(linkApplicationCleanupSummary({ matched: 5, deleted: 5, failed: 0, skipped: 0 })).toBe(
-      "共匹配 5 条申请，已删除 5 条。",
+      "共匹配 5 條申請，已刪除 5 條。",
     );
   });
 
   it("includes skipped approving and failed deletions when present", () => {
     expect(linkApplicationCleanupSummary({ matched: 6, deleted: 3, failed: 1, skipped: 2 })).toBe(
-      "共匹配 6 条申请，已删除 3 条，跳过 2 条审批中的申请，1 条删除失败。",
+      "共匹配 6 條申請，已刪除 3 條，跳過 2 條審批中的申請，1 條刪除失敗。",
     );
   });
 });

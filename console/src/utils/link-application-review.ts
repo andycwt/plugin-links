@@ -46,13 +46,13 @@ export interface LinkApplicationStatusMeta {
 export function linkApplicationStatusMeta(status: string | undefined): LinkApplicationStatusMeta {
   switch (status) {
     case "PENDING":
-      return { label: "待审核", tagType: "warning" };
+      return { label: "待稽核", tagType: "warning" };
     case "APPROVING":
-      return { label: "审批中", tagType: "primary" };
+      return { label: "審批中", tagType: "primary" };
     case "APPROVED":
-      return { label: "已通过", tagType: "success" };
+      return { label: "已透過", tagType: "success" };
     case "REJECTED":
-      return { label: "已拒绝", tagType: "danger" };
+      return { label: "已拒絕", tagType: "danger" };
     default:
       return { label: status || "未知", tagType: "default" };
   }
@@ -112,9 +112,9 @@ export function linkApplicationEffectiveFields(application: LinkApplication): Ap
 export function linkApplicationRejectDescription(application: LinkApplication): string {
   const displayName = application.spec.displayName;
   if (application.spec.origin.type === "COMMENT") {
-    return `拒绝 "${displayName}" 的申请后，该链接不会再被评论识别创建申请，但访客仍可通过表单再次提交。`;
+    return `拒絕 "${displayName}" 的申請後，該連結不會再被評論識別建立申請，但訪客仍可透過表單再次提交。`;
   }
-  return `拒绝 "${displayName}" 的申请后，在拒绝记录存在期间，该链接无法再次提交申请，也不会再被评论识别创建。删除拒绝记录可解除限制。`;
+  return `拒絕 "${displayName}" 的申請後，在拒絕記錄存在期間，該連結無法再次提交申請，也不會再被評論識別建立。刪除拒絕記錄可解除限制。`;
 }
 
 export function linkApplicationCleanupDescription(options: {
@@ -122,27 +122,27 @@ export function linkApplicationCleanupDescription(options: {
   status?: string;
   originType?: string;
 }): string {
-  const parts = [`将删除当前筛选条件下的全部 ${options.total} 条申请记录（审批中的申请会保留），此操作不可恢复。`];
+  const parts = [`將刪除當前篩選條件下的全部 ${options.total} 條申請記錄（審批中的申請會保留），此操作不可恢復。`];
   const mayIncludeResubmissionBlocking =
     (!options.status || options.status === "PENDING" || options.status === "REJECTED") &&
     (!options.originType || options.originType === "FORM");
   if (mayIncludeResubmissionBlocking) {
-    parts.push("其中待审核或已拒绝的表单申请被删除后，对应链接可能可以再次提交申请。");
+    parts.push("其中待稽核或已拒絕的表單申請被刪除後，對應連結可能可以再次提交申請。");
   }
   const mayIncludeApproved = !options.status || options.status === "APPROVED";
   if (mayIncludeApproved) {
-    parts.push("删除已通过的申请不会删除已创建的链接。");
+    parts.push("刪除已透過的申請不會刪除已建立的連結。");
   }
   return parts.join("");
 }
 
 export function linkApplicationCleanupSummary(result: LinkApplicationCleanupResult): string {
-  const segments = [`共匹配 ${result.matched ?? 0} 条申请`, `已删除 ${result.deleted ?? 0} 条`];
+  const segments = [`共匹配 ${result.matched ?? 0} 條申請`, `已刪除 ${result.deleted ?? 0} 條`];
   if ((result.skipped ?? 0) > 0) {
-    segments.push(`跳过 ${result.skipped} 条审批中的申请`);
+    segments.push(`跳過 ${result.skipped} 條審批中的申請`);
   }
   if ((result.failed ?? 0) > 0) {
-    segments.push(`${result.failed} 条删除失败`);
+    segments.push(`${result.failed} 條刪除失敗`);
   }
   return `${segments.join("，")}。`;
 }

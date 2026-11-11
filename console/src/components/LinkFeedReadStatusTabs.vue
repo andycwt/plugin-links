@@ -15,11 +15,11 @@ const tabs: { label: string; value: LinkFeedReadStatus }[] = [
     value: "",
   },
   {
-    label: "未读",
+    label: "未讀",
     value: "unread",
   },
   {
-    label: "已读",
+    label: "已讀",
     value: "read",
   },
 ];

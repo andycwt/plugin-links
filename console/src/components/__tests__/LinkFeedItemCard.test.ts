@@ -32,15 +32,15 @@ describe("LinkFeedItemCard", () => {
 
     expect(wrapper.text()).toContain("Example article");
     expect(wrapper.text()).toContain("Example source");
-    expect(wrapper.text()).toContain("已读");
+    expect(wrapper.text()).toContain("已讀");
     expect(wrapper.text()).toContain("已收藏");
-    expect(wrapper.text()).toContain("稍后阅读");
+    expect(wrapper.text()).toContain("稍後閱讀");
   });
 
   it("emits hide from the per-item hide action", async () => {
     const wrapper = mountCard({ hideable: true });
 
-    await wrapper.get('[aria-label="隐藏文章"]').trigger("click");
+    await wrapper.get('[aria-label="隱藏文章"]').trigger("click");
 
     expect(wrapper.emitted("hide")).toHaveLength(1);
   });
@@ -48,7 +48,7 @@ describe("LinkFeedItemCard", () => {
   it("hides the per-item hide action unless hideable", () => {
     const wrapper = mountCard();
 
-    expect(wrapper.find('[aria-label="隐藏文章"]').exists()).toBe(false);
+    expect(wrapper.find('[aria-label="隱藏文章"]').exists()).toBe(false);
   });
 
   it("keeps hidden mode free of state toggles and offers direct unhide", async () => {
@@ -60,14 +60,14 @@ describe("LinkFeedItemCard", () => {
 
     expect(wrapper.find('[aria-label="收藏"]').exists()).toBe(false);
     expect(wrapper.find('[aria-label="取消收藏"]').exists()).toBe(false);
-    expect(wrapper.find('[aria-label="稍后阅读"]').exists()).toBe(false);
-    expect(wrapper.find('[aria-label="移出稍后阅读"]').exists()).toBe(false);
-    expect(wrapper.find('[aria-label="标为已读"]').exists()).toBe(false);
-    expect(wrapper.find('[aria-label="标为未读"]').exists()).toBe(false);
+    expect(wrapper.find('[aria-label="稍後閱讀"]').exists()).toBe(false);
+    expect(wrapper.find('[aria-label="移出稍後閱讀"]').exists()).toBe(false);
+    expect(wrapper.find('[aria-label="標為已讀"]').exists()).toBe(false);
+    expect(wrapper.find('[aria-label="標為未讀"]').exists()).toBe(false);
     expect(wrapper.text()).toContain("已收藏");
-    expect(wrapper.text()).toContain("稍后阅读");
+    expect(wrapper.text()).toContain("稍後閱讀");
 
-    await wrapper.get('[aria-label="恢复显示"]').trigger("click");
+    await wrapper.get('[aria-label="恢復顯示"]').trigger("click");
 
     expect(wrapper.emitted("unhide")).toHaveLength(1);
   });
@@ -85,7 +85,7 @@ describe("LinkFeedItemCard", () => {
     const wrapper = mountCard({ selectable: true, selected: false });
     const checkbox = wrapper.get('input[type="checkbox"]');
 
-    expect(checkbox.attributes("aria-label")).toContain("选择文章");
+    expect(checkbox.attributes("aria-label")).toContain("選擇文章");
     expect((checkbox.element as HTMLInputElement).checked).toBe(false);
 
     await checkbox.setValue(true);

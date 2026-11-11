@@ -131,7 +131,7 @@ describe("runOriginCommentActions reply", () => {
 
     const outcome = await runOriginCommentActions({
       commentName: "comment-a",
-      intent: { approve: true, replyText: '已通过\n<b>欢迎</b> & "交换友链"' },
+      intent: { approve: true, replyText: '已透過\n<b>歡迎</b> & "交換友鏈"' },
       refetchOriginComment: async () => unapprovedOriginComment,
     });
 
@@ -141,8 +141,8 @@ describe("runOriginCommentActions reply", () => {
     expect(apiMocks.createReply).toHaveBeenCalledWith({
       name: "comment-a",
       replyRequest: {
-        raw: '已通过\n<b>欢迎</b> & "交换友链"',
-        content: "已通过<br />&lt;b&gt;欢迎&lt;/b&gt; &amp; &quot;交换友链&quot;",
+        raw: '已透過\n<b>歡迎</b> & "交換友鏈"',
+        content: "已透過<br />&lt;b&gt;歡迎&lt;/b&gt; &amp; &quot;交換友鏈&quot;",
         allowNotification: true,
         quoteReply: undefined,
       },

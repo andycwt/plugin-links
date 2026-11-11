@@ -84,11 +84,11 @@ export function linkApplicationActionSummary(options: {
   intent: OriginCommentActionIntent;
 }): string {
   const { approve, reply } = normalizeOriginCommentActionIntent(options.intent);
-  const commentPart = reply ? "回复来源评论（评论将随之通过）" : approve ? "通过来源评论" : "";
+  const commentPart = reply ? "回覆來源評論（評論將隨之透過）" : approve ? "透過來源評論" : "";
   if (options.includesLinkApproval) {
-    return commentPart ? `通过申请，并${commentPart}` : "仅通过申请，不处理来源评论";
+    return commentPart ? `透過申請，並${commentPart}` : "僅透過申請，不處理來源評論";
   }
-  return commentPart ? `将${commentPart}` : "未选择评论操作";
+  return commentPart ? `將${commentPart}` : "未選擇評論操作";
 }
 
 export type OriginCommentActionOutcome =
@@ -118,9 +118,9 @@ export function originCommentActionSuccessMessage(
   outcome: Extract<OriginCommentActionOutcome, { type: "completed" }>,
   includesLinkApproval: boolean,
 ): string {
-  const commentPart = outcome.replied ? "回复来源评论" : outcome.approvedComment ? "通过来源评论" : "";
+  const commentPart = outcome.replied ? "回覆來源評論" : outcome.approvedComment ? "透過來源評論" : "";
   if (includesLinkApproval) {
-    return commentPart ? `已通过申请，并${commentPart}` : "已通过申请";
+    return commentPart ? `已透過申請，並${commentPart}` : "已透過申請";
   }
   return commentPart ? `已${commentPart}` : "已完成";
 }
@@ -134,32 +134,32 @@ export function originCommentActionFailureAlert(options: {
   outcome: Exclude<OriginCommentActionOutcome, { type: "completed" }>;
   includesLinkApproval: boolean;
 }): OriginCommentActionFailureAlert {
-  const linkPart = options.includesLinkApproval ? "链接已通过，但" : "";
+  const linkPart = options.includesLinkApproval ? "連結已透過，但" : "";
   if (options.outcome.type === "failed") {
-    const actionLabel = options.outcome.action === "approve" ? "通过来源评论" : "回复来源评论";
+    const actionLabel = options.outcome.action === "approve" ? "透過來源評論" : "回覆來源評論";
     return {
-      title: `${linkPart}${actionLabel}失败`,
+      title: `${linkPart}${actionLabel}失敗`,
       description: options.includesLinkApproval
-        ? "链接已通过且不受影响。可在下方重试仍然适用的评论操作。"
-        : "可重试仍然适用的评论操作。",
+        ? "連結已透過且不受影響。可在下方重試仍然適用的評論操作。"
+        : "可重試仍然適用的評論操作。",
     };
   }
   const stateParts: string[] = [];
   if (options.outcome.commentApproved !== undefined) {
-    stateParts.push(`来源评论当前${options.outcome.commentApproved ? "已通过" : "未通过"}`);
+    stateParts.push(`來源評論當前${options.outcome.commentApproved ? "已透過" : "未透過"}`);
   }
   if (options.outcome.recentReplyCount !== undefined) {
-    stateParts.push(`最近共有 ${options.outcome.recentReplyCount} 条回复`);
+    stateParts.push(`最近共有 ${options.outcome.recentReplyCount} 條回覆`);
   }
-  const stateText = stateParts.length ? `已刷新当前状态：${stateParts.join("，")}。` : "当前状态刷新失败。";
+  const stateText = stateParts.length ? `已重新整理當前狀態：${stateParts.join("，")}。` : "當前狀態重新整理失敗。";
   if (options.outcome.action === "approve") {
     return {
-      title: `${linkPart}评论审批结果未知`,
-      description: `网络或服务异常导致无法确认评论审批是否生效，系统不会自动重试；重新提交审批是安全的，已生效时会自动跳过。${stateText}请核对评论状态后，再决定是否重新提交。`,
+      title: `${linkPart}評論審批結果未知`,
+      description: `網路或服務異常導致無法確認評論審批是否生效，系統不會自動重試；重新提交審批是安全的，已生效時會自動跳過。${stateText}請核對評論狀態後，再決定是否重新提交。`,
     };
   }
   return {
-    title: `${linkPart}回复结果未知`,
-    description: `网络异常导致无法确认回复是否提交成功，系统不会自动重试。${stateText}请核对评论与回复状态后，再决定是否重新提交。`,
+    title: `${linkPart}回覆結果未知`,
+    description: `網路異常導致無法確認回覆是否提交成功，系統不會自動重試。${stateText}請核對評論與回覆狀態後，再決定是否重新提交。`,
   };
 }

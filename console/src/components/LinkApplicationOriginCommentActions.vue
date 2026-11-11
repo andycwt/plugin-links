@@ -56,19 +56,19 @@ function handleSubmit() {
 
 <template>
   <section v-if="view.visible" class=":uno: border border-gray-200 rounded-lg p-3.5">
-    <h3 class=":uno: mb-3.5 text-sm text-gray-900 font-medium">来源评论处理</h3>
+    <h3 class=":uno: mb-3.5 text-sm text-gray-900 font-medium">來源評論處理</h3>
 
     <p v-if="!canManageComments" class=":uno: mb-3.5 text-xs text-gray-500">
-      当前账号缺少友链管理（plugin:links:manage）或评论管理（system:comments:manage）权限，无法通过或回复来源评论。
+      當前賬號缺少友鏈管理（plugin:links:manage）或評論管理（system:comments:manage）許可權，無法透過或回覆來源評論。
     </p>
 
     <p v-else-if="!view.controlsEnabled" class=":uno: mb-3.5 text-xs text-gray-500">
-      来源评论不可用（可能已被删除或加载失败），无法执行评论操作，但不影响链接审核。
+      來源評論不可用（可能已被刪除或載入失敗），無法執行評論操作，但不影響連結稽核。
     </p>
 
     <div v-if="view.hiddenWarning" class=":uno: mb-3.5">
-      <VAlert title="评论处于隐藏状态" type="warning" :closable="false">
-        <template #description>通过或回复评论不会改变其隐藏状态。</template>
+      <VAlert title="評論處於隱藏狀態" type="warning" :closable="false">
+        <template #description>透過或回覆評論不會改變其隱藏狀態。</template>
       </VAlert>
     </div>
 
@@ -77,8 +77,8 @@ function handleSubmit() {
       v-model="approve"
       type="checkbox"
       name="approveOriginComment"
-      label="同时通过来源评论"
-      :help="hasReply ? '回复后评论将自动通过' : undefined"
+      label="同時透過來源評論"
+      :help="hasReply ? '回覆後評論將自動透過' : undefined"
       :disabled="controlsDisabled || hasReply"
     />
 
@@ -87,8 +87,8 @@ function handleSubmit() {
       v-model="replyText"
       type="textarea"
       name="originCommentReply"
-      label="回复来源评论（可选）"
-      placeholder="回复后评论将自动通过"
+      label="回覆來源評論（可選）"
+      placeholder="回覆後評論將自動透過"
       auto-height
       :disabled="controlsDisabled"
     />
@@ -97,7 +97,7 @@ function handleSubmit() {
 
     <div v-if="view.standalone">
       <VButton size="sm" type="secondary" :loading="processing" :disabled="submitDisabled" @click="handleSubmit">
-        处理评论
+        處理評論
       </VButton>
     </div>
   </section>

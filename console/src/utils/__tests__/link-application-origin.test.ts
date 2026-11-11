@@ -9,19 +9,19 @@ import {
 
 describe("link application source presentation", () => {
   it("labels form and comment applications", () => {
-    expect(linkApplicationSourceMeta(application({ type: "FORM" })).label).toBe("表单申请");
-    expect(linkApplicationSourceMeta(application({ type: "COMMENT" })).label).toBe("评论识别");
+    expect(linkApplicationSourceMeta(application({ type: "FORM" })).label).toBe("表單申請");
+    expect(linkApplicationSourceMeta(application({ type: "COMMENT" })).label).toBe("評論識別");
   });
 
   it("uses the resolved subject display and provider URL", () => {
     expect(
       linkApplicationSubjectMeta({
         kindName: "文章",
-        title: "公开文章",
+        title: "公開文章",
         url: "https://example.com/posts/public-post",
       }),
     ).toEqual({
-      label: "文章 · 公开文章",
+      label: "文章 · 公開文章",
       url: "https://example.com/posts/public-post",
     });
   });
@@ -32,11 +32,11 @@ describe("link application source presentation", () => {
       url: "/posts/post-a",
     });
     expect(linkApplicationSubjectMeta({ kindName: "  ", title: "  ", url: "/posts/post-a" })).toEqual({
-      label: "评论来源",
+      label: "評論來源",
       url: "/posts/post-a",
     });
-    expect(linkApplicationSubjectMeta({ kindName: "  ", title: "公开文章", url: "/posts/post-a" })).toEqual({
-      label: "公开文章",
+    expect(linkApplicationSubjectMeta({ kindName: "  ", title: "公開文章", url: "/posts/post-a" })).toEqual({
+      label: "公開文章",
       url: "/posts/post-a",
     });
     expect(linkApplicationSubjectMeta({ kindName: "文章", title: "  ", url: "/posts/post-a" })?.label).not.toContain(

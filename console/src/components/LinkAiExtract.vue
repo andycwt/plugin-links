@@ -33,7 +33,7 @@ async function handleFetchComments() {
     const { data } = await linkAiApiClient.ai.listRecentLinkComments();
     recentComments.value = data;
     if (!data.length) {
-      Toast.info("暂无评论");
+      Toast.info("暫無評論");
     }
   } catch {
     // Halo's API interceptor shows request failure toasts.
@@ -50,7 +50,7 @@ function selectComment(comment: LinkCommentSummaryDTO) {
 async function handleAiExtract() {
   const content = manualCommentText.value.trim();
   if (!content) {
-    Toast.error("请选择一条评论或输入评论内容");
+    Toast.error("請選擇一條評論或輸入評論內容");
     return;
   }
   if (isExtracting.value) return;
@@ -60,7 +60,7 @@ async function handleAiExtract() {
       linkCommentExtractionRequest: { content },
     });
     emit("extract", result);
-    Toast.success("AI 识别成功");
+    Toast.success("AI 識別成功");
     showPanel.value = false;
     reset();
   } finally {
@@ -87,15 +87,15 @@ function open() {
         <template #icon>
           <MdiRobot class=":uno: size-4" />
         </template>
-        从评论识别
+        從評論識別
       </VButton>
-      <span class=":uno: text-xs text-gray-500">通过 AI 从访客评论中提取友链信息</span>
+      <span class=":uno: text-xs text-gray-500">透過 AI 從訪客評論中提取友鏈資訊</span>
     </div>
     <div v-else class=":uno: border border-gray-200 rounded-xl bg-white p-4 shadow-sm space-y-4">
       <div class=":uno: flex items-center justify-between">
         <div class=":uno: flex items-center gap-2">
           <MdiRobot class=":uno: size-5 text-blue-600" />
-          <span class=":uno: text-sm text-gray-900 font-semibold">从评论识别友链</span>
+          <span class=":uno: text-sm text-gray-900 font-semibold">從評論識別友鏈</span>
         </div>
         <button
           type="button"
@@ -106,13 +106,13 @@ function open() {
         </button>
       </div>
 
-      <p class=":uno: text-xs text-gray-500">从最新评论中提取网站地址、名称、Logo、描述和 RSS 订阅地址。</p>
+      <p class=":uno: text-xs text-gray-500">從最新評論中提取網站地址、名稱、Logo、描述和 RSS 訂閱地址。</p>
 
       <VButton size="sm" :loading="isLoadingComments" @click="handleFetchComments">
         <template #icon>
           <MdiCommentTextOutline class=":uno: size-4" />
         </template>
-        获取最新评论
+        獲取最新評論
       </VButton>
 
       <div v-if="isLoadingComments" class=":uno: flex justify-center py-6">
@@ -151,19 +151,19 @@ function open() {
       </div>
 
       <div v-else class=":uno: border border-gray-200 rounded-lg border-dashed py-5 text-center">
-        <p class=":uno: text-sm text-gray-400">暂无评论</p>
-        <p class=":uno: mt-1 text-xs text-gray-400">可手动在下方粘贴评论内容</p>
+        <p class=":uno: text-sm text-gray-400">暫無評論</p>
+        <p class=":uno: mt-1 text-xs text-gray-400">可手動在下方貼上評論內容</p>
       </div>
 
       <FormKit
         v-model="manualCommentText"
         type="textarea"
         name="commentContent"
-        label="评论内容"
-        help="可手动粘贴或编辑"
+        label="評論內容"
+        help="可手動貼上或編輯"
         rows="3"
         auto-height
-        placeholder="选择上方评论或手动粘贴内容，AI 将从中提取友链信息..."
+        placeholder="選擇上方評論或手動貼上內容，AI 將從中提取友鏈資訊..."
       ></FormKit>
 
       <div class=":uno: flex justify-end">
@@ -171,7 +171,7 @@ function open() {
           <template #icon>
             <MdiRobot class=":uno: size-4" />
           </template>
-          AI 识别
+          AI 識別
         </VButton>
       </div>
     </div>

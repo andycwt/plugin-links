@@ -98,8 +98,8 @@ onUnmounted(() => {
       v-if="isVisible"
       type="button"
       class=":uno: feed-back-to-top"
-      aria-label="返回顶部"
-      title="返回顶部"
+      aria-label="返回頂部"
+      title="返回頂部"
       @click="scrollToTop"
     >
       <ArrowUpFillIcon class=":uno: feed-back-to-top__icon" aria-hidden="true" />

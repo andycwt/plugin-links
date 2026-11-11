@@ -5,134 +5,134 @@ metadata:
 spec:
   forms:
     - group: base
-      label: 基本设置
+      label: 基本設定
       formSchema:
         - $formkit: text
-          label: 页面标题
+          label: 頁面標題
           name: title
           validation: required
-          value: "链接"
+          value: "連結"
     - group: verification
-      label: 链接检测
+      label: 連結檢測
       formSchema:
         - $formkit: checkbox
-          label: 启用自动定时检测
+          label: 啟用自動定時檢測
           name: enabled
           id: verification_enabled
           value: false
-          help: 启用后，系统会自动定时检测链接的可达性，并更新链接的可达性状态，如果关闭，可以在链接管理页面手动检测
+          help: 啟用後，系統會自動定時檢測連結的可達性，並更新連結的可達性狀態，如果關閉，可以在連結管理頁面手動檢測
         - $formkit: number
           if: "$get(verification_enabled).value === true"
-          label: 检测间隔（小时）
+          label: 檢測間隔（小時）
           name: intervalHours
           validation: required|number|min:1
           value: 24
         - $formkit: number
           if: "$get(verification_enabled).value === true"
-          label: 每轮最多检测链接数
+          label: 每輪最多檢測連結數
           name: maxLinksPerRun
           validation: required|number|min:1
           value: 50
         - $formkit: checkbox
           if: "$get(verification_enabled).value === true"
-          label: 同时检测反链
+          label: 同時檢測反鏈
           name: checkBacklink
           value: false
     - group: rss
-      label: RSS 订阅
+      label: RSS 訂閱
       formSchema:
         - $formkit: checkbox
-          label: 启用自动获取
+          label: 啟用自動獲取
           name: enabled
           id: rss_refresh_enabled
           value: true
-          help: 启用后，系统会自动定时获取链接的 RSS 订阅，并更新链接的 RSS 订阅状态，如果关闭，可以在链接订阅页面手动获取
+          help: 啟用後，系統會自動定時獲取連結的 RSS 訂閱，並更新連結的 RSS 訂閱狀態，如果關閉，可以在連結訂閱頁面手動獲取
         - $formkit: number
           if: "$get(rss_refresh_enabled).value === true"
-          label: 获取间隔（小时）
+          label: 獲取間隔（小時）
           name: intervalHours
           validation: required|number|min:1
           value: 1
         - $formkit: number
           if: "$get(rss_refresh_enabled).value === true"
-          label: 每轮最多获取链接数
+          label: 每輪最多獲取連結數
           name: maxLinksPerRun
           validation: required|number|min:1
           value: 50
         - $formkit: checkbox
-          label: 公开 RSS 订阅动态
+          label: 公開 RSS 訂閱動態
           name: publicEnabled
           value: false
-          help: 部分主题可能需要显示 RSS 订阅信息，开启后匿名访问者和主题可以读取已抓取的 RSS 条目，请确认风险之后再决定是否开启
+          help: 部分主題可能需要顯示 RSS 訂閱資訊，開啟後匿名訪問者和主題可以讀取已抓取的 RSS 條目，請確認風險之後再決定是否開啟
     - group: application
-      label: 友链申请
+      label: 友鏈申請
       formSchema:
         - $formkit: checkbox
-          label: 启用友链申请
+          label: 啟用友鏈申請
           name: enabled
           id: link_application_enabled
           value: false
-          help: 总开关。关闭后访客提交和评论自动识别都不会创建新申请，已有申请仍可继续审核
+          help: 總開關。關閉後訪客提交和評論自動識別都不會建立新申請，已有申請仍可繼續稽核
         - $formkit: group
           if: "$get(link_application_enabled).value === true"
           name: selfSubmission
-          label: 访客自助申请
+          label: 訪客自助申請
           children:
             - $formkit: checkbox
-              label: 允许访客提交
+              label: 允許訪客提交
               name: enabled
               value: true
-              help: 允许访客通过原生 Form 或 REST API 提交申请，主题应根据 linkApplicationEnabled 决定是否展示申请入口
+              help: 允許訪客透過原生 Form 或 REST API 提交申請，主題應根據 linkApplicationEnabled 決定是否展示申請入口
         - $formkit: group
           if: "$get(link_application_enabled).value === true"
           name: security
           label: 安全
           children:
             - $formkit: number
-              label: 待审核申请容量
+              label: 待稽核申請容量
               name: pendingCapacity
               step: 1
               validation: 'required|number|min:1|matches:/^[1-9][0-9]*$/'
               value: 100
-              help: 限制待审核友链申请的最大数量。达到上限后将暂停接收新申请，直到待审核数量下降
+              help: 限制待稽核友鏈申請的最大數量。達到上限後將暫停接收新申請，直到待稽核數量下降
         - $formkit: group
           if: "$get(link_application_enabled).value === true"
           name: commentRecognition
-          label: 从新评论中识别友链申请
+          label: 從新評論中識別友鏈申請
           children:
             - $formkit: checkbox
-              label: 开启
+              label: 開啟
               name: enabled
               id: comment_application_recognition_enabled
               value: false
-              help: 需要在应用市场安装并启用 AI Foundation 插件，且所选模型必须支持结构化输出，开启之后会根据评论来源配置自动识别友链申请并创建新申请，此功能将在每次有新评论的时候触发，所以请根据实际需要开启
+              help: 需要在應用市場安裝並啟用 AI Foundation 外掛，且所選模型必須支援結構化輸出，開啟之後會根據評論來源配置自動識別友鏈申請並建立新申請，此功能將在每次有新評論的時候觸發，所以請根據實際需要開啟
             - $formkit: aiModelSelector
               if: "$get(comment_application_recognition_enabled).value === true"
               modelType: language
               clearable: true
               name: modelName
               key: recognitionModelName
-              label: 识别模型
-              placeholder: 请选择支持结构化输出的语言模型
+              label: 識別模型
+              placeholder: 請選擇支援結構化輸出的語言模型
               validation: required
             - $formkit: repeater
               if: "$get(comment_application_recognition_enabled).value === true"
               name: sources
-              label: 评论来源
+              label: 評論來源
               value: []
               validation: required
               min: 1
               children:
                 - $formkit: select
                   name: type
-                  label: 页面类型
+                  label: 頁面型別
                   validation: required
                   options:
-                    - label: 链接页面
+                    - label: 連結頁面
                       value: LINKS
                     - label: 文章
                       value: POST
-                    - label: 页面
+                    - label: 頁面
                       value: SINGLE_PAGE
                 - $formkit: postSelect
                   if: "$value.type === 'POST'"
@@ -143,46 +143,46 @@ spec:
                 - $formkit: singlePageSelect
                   if: "$value.type === 'SINGLE_PAGE'"
                   name: name
-                  label: 页面
+                  label: 頁面
                   validation: required
                   clearable: false
         - $formkit: group
           if: "$get(link_application_enabled).value === true"
           name: notification
-          label: 申请通知
+          label: 申請通知
           children:
             - $formkit: checkbox
-              label: 开启通知
+              label: 開啟通知
               name: enabled
               id: link_application_notification_enabled
               value: false
-              help: 新的友链申请创建成功后，通过 Halo 通知机制提醒所选管理员
+              help: 新的友鏈申請建立成功後，透過 Halo 通知機制提醒所選管理員
             - $formkit: userSelect
               if: "$get(link_application_notification_enabled).value === true"
               name: recipients
-              label: 接收通知的管理员
+              label: 接收通知的管理員
               value: []
               multiple: true
               validation: required
               help: >-
-                请选择拥有链接管理权限的管理员，插件不会自动校验权限。插件会按此列表维护通知订阅；
-                邮件中的取消订阅不会修改此列表，如需停止接收，请移除用户或由用户在个人通知偏好中关闭此类型
+                請選擇擁有連結管理許可權的管理員，外掛不會自動校驗許可權。外掛會按此列表維護通知訂閱；
+                郵件中的取消訂閱不會修改此列表，如需停止接收，請移除使用者或由使用者在個人通知偏好中關閉此型別
     - group: ai
       label: AI
       formSchema:
         - $formkit: checkbox
-          label: 开启 AI 功能
+          label: 開啟 AI 功能
           name: enabled
           id: ai_enabled
           value: false
-          help: 开启后，可以在支持的场景中使用 AI Foundation 提供的模型能力，需要在应用市场安装并启用 AI Foundation 插件
+          help: 開啟後，可以在支援的場景中使用 AI Foundation 提供的模型能力，需要在應用市場安裝並啟用 AI Foundation 外掛
         - $formkit: group
           if: "$get(ai_enabled).value === true"
           name: commentExtraction
-          label: 添加链接时从最新评论中解析
+          label: 新增連結時從最新評論中解析
           children:
             - $formkit: checkbox
-              label: 开启
+              label: 開啟
               name: enabled
               id: ai_comment_extraction_enabled
               value: true
@@ -193,5 +193,5 @@ spec:
               clearable: true
               name: modelName
               key: modelName
-              placeholder: 请选择语言模型
-              help: 可选，不设置时会使用 AI Foundation 的默认语言模型。
+              placeholder: 請選擇語言模型
+              help: 可選，不設定時會使用 AI Foundation 的預設語言模型。

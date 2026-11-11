@@ -21,7 +21,7 @@ describe("accessVerificationStatusMeta", () => {
       ),
     ).toMatchObject({
       tone: "success",
-      label: "访问正常",
+      label: "訪問正常",
     });
 
     expect(
@@ -54,7 +54,7 @@ describe("backlinkVerificationStatusMeta", () => {
       ),
     ).toMatchObject({
       tone: "success",
-      label: "反链正常",
+      label: "反鏈正常",
     });
 
     expect(
@@ -70,8 +70,8 @@ describe("backlinkVerificationStatusMeta", () => {
   });
 
   it("distinguishes configured-but-unchecked backlinks from unconfigured links", () => {
-    expect(backlinkVerificationStatusMeta(link(undefined, "https://example.com/links")).label).toBe("反链未检测");
-    expect(backlinkVerificationStatusMeta(link()).label).toBe("未配置反链");
+    expect(backlinkVerificationStatusMeta(link(undefined, "https://example.com/links")).label).toBe("反鏈未檢測");
+    expect(backlinkVerificationStatusMeta(link()).label).toBe("未配置反鏈");
   });
 });
 

@@ -6,8 +6,8 @@ metadata:
     rbac.authorization.halo.run/ui-permissions: |
       ["plugin:links:manage"]
 spec:
-  displayName: "新的友链申请"
-  description: "所选管理员会在新的友链申请创建成功后收到通知。"
+  displayName: "新的友鏈申請"
+  description: "所選管理員會在新的友鏈申請建立成功後收到通知。"
   properties:
     - name: displayName
       type: string
@@ -17,7 +17,7 @@ spec:
       description: "The submitted website URL."
     - name: originLabel
       type: string
-      description: "The localized application origin: 访客自助申请 or 评论识别."
+      description: "The localized application origin: 訪客自助申請 or 評論識別."
     - name: manageUrl
       type: string
       description: "The absolute URL of the Links Console page."
@@ -31,15 +31,15 @@ spec:
     reasonType: plugin-links-new-link-application
     language: default
   template:
-    title: "收到新的友链申请：[(${displayName})]"
+    title: "收到新的友鏈申請：[(${displayName})]"
     rawBody: |
       [(${subscriber.displayName})] 你好：
 
-        收到新的友链申请：[(${displayName})]
-        网站地址：[(${websiteUrl})]
-        申请来源：[(${originLabel})]
+        收到新的友鏈申請：[(${displayName})]
+        網站地址：[(${websiteUrl})]
+        申請來源：[(${originLabel})]
 
-        前往审核：[(${manageUrl})]
+        前往稽核：[(${manageUrl})]
     htmlBody: |
       <div class="notification-content">
         <div class="head">
@@ -47,12 +47,12 @@ spec:
         </div>
         <div class="body">
           <p>
-            收到新的友链申请：
+            收到新的友鏈申請：
             <span th:text="${displayName}"></span>
           </p>
           <ul>
             <li>
-              网站地址：
+              網站地址：
               <a
                 th:href="${websiteUrl}"
                 th:text="${websiteUrl}"
@@ -61,12 +61,12 @@ spec:
               ></a>
             </li>
             <li>
-              申请来源：
+              申請來源：
               <span th:text="${originLabel}"></span>
             </li>
           </ul>
           <p>
-            <a th:href="${manageUrl}">前往审核</a>
+            <a th:href="${manageUrl}">前往稽核</a>
           </p>
         </div>
       </div>

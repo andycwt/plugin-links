@@ -46,7 +46,7 @@ const publishedAt = computed(() => {
 });
 
 const readActionLabel = computed(() => {
-  return props.item.read ? "标为未读" : "标为已读";
+  return props.item.read ? "標為未讀" : "標為已讀";
 });
 
 const { isMarkingFavorite, isMarkingRead, isMarkingReadLater, openItem, toggleFavorite, toggleRead, toggleReadLater } =
@@ -68,7 +68,7 @@ const { isMarkingFavorite, isMarkingRead, isMarkingReadLater, openItem, toggleFa
         type="checkbox"
         class=":uno: feed-item__checkbox"
         :checked="selected"
-        :aria-label="`选择文章 ${articleTitle(item)}`"
+        :aria-label="`選擇文章 ${articleTitle(item)}`"
         @change="emit('toggle-select')"
       />
       <span v-else class=":uno: feed-item__dot" :class="{ ':uno: feed-item__dot--read': item.read }"></span>
@@ -89,9 +89,9 @@ const { isMarkingFavorite, isMarkingRead, isMarkingReadLater, openItem, toggleFa
             size="sm"
             ghost
             class=":uno: feed-item__action"
-            aria-label="恢复显示"
+            aria-label="恢復顯示"
             v-tooltip="{
-              content: '恢复显示',
+              content: '恢復顯示',
             }"
             @click="emit('unhide')"
           >
@@ -120,10 +120,10 @@ const { isMarkingFavorite, isMarkingRead, isMarkingReadLater, openItem, toggleFa
               size="sm"
               ghost
               class=":uno: feed-item__action"
-              :aria-label="item.readLater ? '移出稍后阅读' : '稍后阅读'"
+              :aria-label="item.readLater ? '移出稍後閱讀' : '稍後閱讀'"
               :disabled="isMarkingReadLater"
               v-tooltip="{
-                content: item.readLater ? '移出稍后阅读' : '稍后阅读',
+                content: item.readLater ? '移出稍後閱讀' : '稍後閱讀',
               }"
               @click="toggleReadLater()"
             >
@@ -153,9 +153,9 @@ const { isMarkingFavorite, isMarkingRead, isMarkingReadLater, openItem, toggleFa
               size="sm"
               ghost
               class=":uno: feed-item__action"
-              aria-label="隐藏文章"
+              aria-label="隱藏文章"
               v-tooltip="{
-                content: '隐藏文章',
+                content: '隱藏文章',
               }"
               @click="emit('hide')"
             >
@@ -187,10 +187,10 @@ const { isMarkingFavorite, isMarkingRead, isMarkingReadLater, openItem, toggleFa
 
         <div class=":uno: feed-item__badges">
           <span class=":uno: feed-item__badge" :class="{ ':uno: feed-item__badge--unread': !item.read }">
-            {{ item.read ? "已读" : "未读" }}
+            {{ item.read ? "已讀" : "未讀" }}
           </span>
           <span v-if="item.favorite" class=":uno: feed-item__badge feed-item__badge--favorite">已收藏</span>
-          <span v-if="item.readLater" class=":uno: feed-item__badge feed-item__badge--read-later">稍后阅读</span>
+          <span v-if="item.readLater" class=":uno: feed-item__badge feed-item__badge--read-later">稍後閱讀</span>
         </div>
       </div>
     </div>

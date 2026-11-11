@@ -71,7 +71,7 @@ describe("startInitialLinkFeedRefresh", () => {
     await harness.deferred.promise;
     await flushPromises();
 
-    expect(harness.successMessages).toEqual(["RSS 已自动获取"]);
+    expect(harness.successMessages).toEqual(["RSS 已自動獲取"]);
     expect(harness.invalidateCalls).toEqual([
       [QK_GROUPS_WITH_LINKS],
       [QK_RSS_GROUPS_WITH_LINKS],

@@ -69,8 +69,8 @@ function handleBatchUnhide() {
   }
 
   Dialog.warning({
-    title: "恢复所选文章",
-    description: `确认恢复所选的 ${selectedCount.value} 篇已隐藏文章吗？恢复后将重新出现在正常列表和公开订阅中。`,
+    title: "恢復所選文章",
+    description: `確認恢復所選的 ${selectedCount.value} 篇已隱藏文章嗎？恢復後將重新出現在正常列表和公開訂閱中。`,
     confirmType: "primary",
     onConfirm: async () => {
       const result = await setHiddenState(selectedIds.value, false);
@@ -85,10 +85,10 @@ function handleBatchUnhide() {
 
 function showUnhideSummary(updatedCount: number) {
   if (!updatedCount) {
-    Toast.info("所选文章已处于可见状态");
+    Toast.info("所選文章已處於可見狀態");
     return;
   }
-  Toast.success(`已恢复 ${updatedCount} 篇文章`);
+  Toast.success(`已恢復 ${updatedCount} 篇文章`);
 }
 
 async function handleReload() {
@@ -98,19 +98,19 @@ async function handleReload() {
 </script>
 
 <template>
-  <VModal ref="modal" :centered="false" title="已隐藏文章" :mount-to-body="true" :width="860" @close="emit('close')">
+  <VModal ref="modal" :centered="false" title="已隱藏文章" :mount-to-body="true" :width="860" @close="emit('close')">
     <div class=":uno: hidden-feed">
       <div v-if="canManage" class=":uno: hidden-feed__toolbar">
         <span class=":uno: hidden-feed__selection" role="status">
-          {{ selectedCount ? `已选 ${selectedCount} 篇` : "勾选文章后可批量恢复" }}
+          {{ selectedCount ? `已選 ${selectedCount} 篇` : "勾選文章後可批次恢復" }}
         </span>
         <VSpace class=":uno: flex-wrap">
           <VButton size="sm" ghost :disabled="!items.length || allLoadedSelected" @click="selectAllLoaded">
-            全选已加载
+            全選已載入
           </VButton>
-          <VButton size="sm" ghost :disabled="!selectedCount" @click="clearSelection">取消选择</VButton>
+          <VButton size="sm" ghost :disabled="!selectedCount" @click="clearSelection">取消選擇</VButton>
           <VButton size="sm" :disabled="!selectedCount" :loading="isUpdating" @click="handleBatchUnhide">
-            恢复所选{{ selectedCount ? ` (${selectedCount})` : "" }}
+            恢復所選{{ selectedCount ? ` (${selectedCount})` : "" }}
           </VButton>
         </VSpace>
       </div>
@@ -118,7 +118,7 @@ async function handleReload() {
       <LinkFeedItemList
         :feed="feed"
         :source-name="sourceName"
-        empty-text="暂无已隐藏文章"
+        empty-text="暫無已隱藏文章"
         item-action-mode="hidden"
         :selectable="canManage"
         :unhideable="canManage"
@@ -130,8 +130,8 @@ async function handleReload() {
 
     <template #footer>
       <VSpace>
-        <VButton type="secondary" :loading="isLoading" @click="handleReload()">重新加载</VButton>
-        <VButton @click="modal?.close()">关闭</VButton>
+        <VButton type="secondary" :loading="isLoading" @click="handleReload()">重新載入</VButton>
+        <VButton @click="modal?.close()">關閉</VButton>
       </VSpace>
     </template>
   </VModal>

@@ -42,7 +42,7 @@ async function onSubmit(data: GroupFormState) {
     <div class=":uno: md:grid md:grid-cols-4 md:gap-6">
       <div class=":uno: md:col-span-1">
         <div class=":uno: sticky top-0">
-          <span class=":uno: text-base text-gray-900 font-medium"> 常规 </span>
+          <span class=":uno: text-base text-gray-900 font-medium"> 常規 </span>
         </div>
       </div>
       <div class=":uno: mt-5 md:col-span-3 md:mt-0 divide-y divide-gray-100">
@@ -51,7 +51,7 @@ async function onSubmit(data: GroupFormState) {
           name="displayName"
           :value="formState?.displayName"
           validation="required"
-          label="分组名称"
+          label="分組名稱"
         />
       </div>
     </div>
@@ -64,7 +64,7 @@ async function onSubmit(data: GroupFormState) {
   <div class=":uno: md:grid md:grid-cols-4 md:gap-6">
     <div class=":uno: md:col-span-1">
       <div class=":uno: sticky top-0">
-        <span class=":uno: text-base text-gray-900 font-medium"> 元数据 </span>
+        <span class=":uno: text-base text-gray-900 font-medium"> 後設資料 </span>
       </div>
     </div>
     <div class=":uno: mt-5 md:col-span-3 md:mt-0 divide-y divide-gray-100">

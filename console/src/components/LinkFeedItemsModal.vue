@@ -35,8 +35,8 @@ const isLoading = computed(() => props.feed.isLoading.value);
 
     <template #footer>
       <VSpace>
-        <VButton type="secondary" :loading="isLoading" @click="feed.reload()">重新加载</VButton>
-        <VButton @click="modal?.close()">关闭</VButton>
+        <VButton type="secondary" :loading="isLoading" @click="feed.reload()">重新載入</VButton>
+        <VButton @click="modal?.close()">關閉</VButton>
       </VSpace>
     </template>
   </VModal>

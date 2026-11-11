@@ -58,7 +58,7 @@ function handleContextMenu(event: MouseEvent) {
 
     if (props.groupName) {
       moveItems.push({
-        label: "未分组",
+        label: "未分組",
         divided: moveItems.length ? "up" : false,
         onClick: () => handleMove(),
       });
@@ -71,18 +71,18 @@ function handleContextMenu(event: MouseEvent) {
       zIndex: 999,
       items: [
         {
-          label: "编辑链接",
+          label: "編輯連結",
           onClick: () => emit("open-edit"),
           icon: h(MingcuteEdit4Line),
         },
         {
-          label: "移动到",
+          label: "移動到",
           disabled: !moveItems.length,
           children: moveItems,
           icon: h(MingcuteMoveLine),
         },
         {
-          label: "删除链接",
+          label: "刪除連結",
           divided: "up",
           icon: h(Delete2LineIcon),
           customClass: ":uno: !text-red-500",
@@ -115,17 +115,17 @@ const rssStatusTone = computed<LinkVerificationTone>(() => {
 const rssTooltip = computed(() => {
   const rss = props.link.status?.rss;
   const feedCount = rssFeedUrls(props.link).length;
-  const feedCountText = feedCount > 1 ? `${feedCount} 个订阅源，` : "";
+  const feedCountText = feedCount > 1 ? `${feedCount} 個訂閱源，` : "";
   if (hasPartialRssFailure(props.link)) {
-    return `RSS 部分订阅源获取失败，${feedCountText}缓存 ${rss?.itemCount || 0} 篇`;
+    return `RSS 部分訂閱源獲取失敗，${feedCountText}快取 ${rss?.itemCount || 0} 篇`;
   }
   if (hasRssFailure(props.link) && rss?.lastError) {
-    return `RSS 获取失败：${rss.lastError}`;
+    return `RSS 獲取失敗：${rss.lastError}`;
   }
   if (rss?.lastSuccessAt) {
-    return `RSS 已启用，${feedCountText}缓存 ${rss.itemCount || 0} 篇`;
+    return `RSS 已啟用，${feedCountText}快取 ${rss.itemCount || 0} 篇`;
   }
-  return "RSS 已启用，等待获取";
+  return "RSS 已啟用，等待獲取";
 });
 
 const accessStatusMeta = computed(() => accessVerificationStatusMeta(props.link));
@@ -134,13 +134,13 @@ const backlinkStatusMeta = computed(() => backlinkVerificationStatusMeta(props.l
 const accessStatusLabel = computed(() => {
   switch (props.link.status?.verification?.access?.state) {
     case "CHECKING":
-      return "检测中";
+      return "檢測中";
     case "ACCESSIBLE":
       return "正常";
     case "INACCESSIBLE":
-      return "异常";
+      return "異常";
     default:
-      return "待检";
+      return "待檢";
   }
 });
 
@@ -165,7 +165,7 @@ const statusItems = computed<LinkBadgeStatusItem[]>(() => {
   if (props.link.spec.verification?.backlinkScanUrl) {
     items.push({
       key: "backlink",
-      label: "反链",
+      label: "反鏈",
       tone: backlinkStatusMeta.value.tone,
       tooltip: backlinkTooltip.value,
     });
@@ -211,11 +211,11 @@ function verificationTooltip(meta: ReturnType<typeof accessVerificationStatusMet
 }
 
 function handleMove(group?: LinkGroupVo) {
-  const targetName = group?.spec?.displayName || "未分组";
+  const targetName = group?.spec?.displayName || "未分組";
 
   Dialog.warning({
-    title: "移动链接",
-    description: `确认将 ${displayName.value} 移动到${targetName}吗？`,
+    title: "移動連結",
+    description: `確認將 ${displayName.value} 移動到${targetName}嗎？`,
     confirmType: "danger",
     onConfirm: () => moveLink(group?.metadata?.name),
   });
@@ -231,21 +231,21 @@ async function moveLink(groupName?: string) {
     jsonPatchInner,
   });
 
-  Toast.success("移动成功");
+  Toast.success("移動成功");
   invalidateLinkQueries();
 }
 
 function handleDelete() {
   Dialog.warning({
-    title: "是否确认删除当前的链接？",
-    description: "删除之后将无法恢复。",
+    title: "是否確認刪除當前的連結？",
+    description: "刪除之後將無法恢復。",
     confirmType: "danger",
     onConfirm: async () => {
       await linksCoreApiClient.link.deleteLink({
         name: props.link.metadata.name,
       });
 
-      Toast.success("删除成功");
+      Toast.success("刪除成功");
       invalidateLinkQueries();
       await invalidateLinkFeedItemSummary(queryClient);
     },
@@ -300,7 +300,7 @@ function invalidateLinkQueries() {
       </div>
     </div>
 
-    <div v-if="showStatusDock" class=":uno: link-badge__status-dock" aria-label="链接状态">
+    <div v-if="showStatusDock" class=":uno: link-badge__status-dock" aria-label="連結狀態">
       <span
         v-for="item in statusItems"
         :key="item.key"
@@ -323,11 +323,11 @@ function invalidateLinkQueries() {
         target="_blank"
         rel="noreferrer"
         class=":uno: link-badge__external-link"
-        :aria-label="`打开 ${displayName}`"
+        :aria-label="`開啟 ${displayName}`"
         @click.stop
       >
         <IconExternalLinkLine class=":uno: link-badge__external-icon" />
-        <span class=":uno: link-badge__status-label">访问</span>
+        <span class=":uno: link-badge__status-label">訪問</span>
       </a>
     </div>
   </label>

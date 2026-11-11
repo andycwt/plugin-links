@@ -25,36 +25,36 @@ export function linkFeedStatusMeta(link: Link): LinkFeedStatusMeta {
       return {
         state,
         tone: "danger",
-        label: "获取失败",
-        description: link.status?.rss?.lastError || "所有订阅源获取失败",
+        label: "獲取失敗",
+        description: link.status?.rss?.lastError || "所有訂閱源獲取失敗",
       };
     case "partial":
       return {
         state,
         tone: "warning",
-        label: "部分失败",
-        description: "部分订阅源获取失败",
+        label: "部分失敗",
+        description: "部分訂閱源獲取失敗",
       };
     case "success":
       return {
         state,
         tone: "success",
-        label: "状态正常",
-        description: "RSS 已成功获取",
+        label: "狀態正常",
+        description: "RSS 已成功獲取",
       };
     case "waiting":
       return {
         state,
         tone: "warning",
-        label: "等待获取",
-        description: "RSS 已启用，等待首次获取",
+        label: "等待獲取",
+        description: "RSS 已啟用，等待首次獲取",
       };
     default:
       return {
         state,
         tone: "muted",
-        label: "暂无订阅",
-        description: "暂无可检查的 RSS 订阅",
+        label: "暫無訂閱",
+        description: "暫無可檢查的 RSS 訂閱",
       };
   }
 }
@@ -64,8 +64,8 @@ export function aggregateLinkFeedStatusMeta(links: Link[]): LinkFeedStatusMeta {
     return {
       state: "empty",
       tone: "muted",
-      label: "暂无订阅",
-      description: "暂无可检查的 RSS 订阅",
+      label: "暫無訂閱",
+      description: "暫無可檢查的 RSS 訂閱",
     };
   }
 
@@ -79,8 +79,8 @@ export function aggregateLinkFeedStatusMeta(links: Link[]): LinkFeedStatusMeta {
     return {
       state: failedCount === links.length ? "failed" : "partial",
       tone: failedCount === links.length ? "danger" : "warning",
-      label: `${issueCount} 个异常`,
-      description: `有 ${issueCount} 个订阅存在获取异常`,
+      label: `${issueCount} 個異常`,
+      description: `有 ${issueCount} 個訂閱存在獲取異常`,
     };
   }
 
@@ -88,8 +88,8 @@ export function aggregateLinkFeedStatusMeta(links: Link[]): LinkFeedStatusMeta {
     return {
       state: "waiting",
       tone: "warning",
-      label: `${waitingCount} 个待获取`,
-      description: `有 ${waitingCount} 个订阅等待首次获取`,
+      label: `${waitingCount} 個待獲取`,
+      description: `有 ${waitingCount} 個訂閱等待首次獲取`,
     };
   }
 
@@ -97,7 +97,7 @@ export function aggregateLinkFeedStatusMeta(links: Link[]): LinkFeedStatusMeta {
     state: "success",
     tone: "success",
     label: "全部正常",
-    description: "所有订阅最近均成功获取",
+    description: "所有訂閱最近均成功獲取",
   };
 }
 

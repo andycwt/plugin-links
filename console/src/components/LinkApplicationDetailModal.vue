@@ -113,8 +113,8 @@ const effectiveReviewMode = computed(() => (linkApproved.value ? "readonly" : re
 
 const modalTitle = computed(() =>
   effectiveReviewMode.value === "editable"
-    ? `审核申请 - ${props.application.spec.displayName}`
-    : `申请详情 - ${props.application.spec.displayName}`,
+    ? `稽核申請 - ${props.application.spec.displayName}`
+    : `申請詳情 - ${props.application.spec.displayName}`,
 );
 
 // permission.has defaults to "any", so pass false to require both link and comment management.
@@ -183,7 +183,7 @@ const frozenGroupLabel = computed(() => {
     return "不分配";
   }
   const group = groups.value?.find((item) => item.metadata?.name === groupName);
-  return group?.spec?.displayName || "未知分组";
+  return group?.spec?.displayName || "未知分組";
 });
 
 const groupOptions = computed(() => [
@@ -243,11 +243,11 @@ async function approveAndHandleComment(approveLink: () => Promise<unknown>, appr
 
 function handleApprove(data: LinkApplicationApprovalFormData) {
   if (!data.displayName?.trim()) {
-    Toast.error("网站名称不能为空");
+    Toast.error("網站名稱不能為空");
     return;
   }
   if (!data.url?.trim()) {
-    Toast.error("链接地址不能为空");
+    Toast.error("連結地址不能為空");
     return;
   }
   const request = buildLinkApplicationApprovalRequest(data);
@@ -261,8 +261,8 @@ function handleResumeApproval() {
 function handleCommentActionSubmit(intent: OriginCommentActionIntent) {
   if (awaitingReplyConfirmation.value && intent.replyText.trim()) {
     Dialog.warning({
-      title: "确认重新提交回复？",
-      description: "上次回复请求结果未知，重复提交可能产生重复回复，请确认已核对评论与回复状态。",
+      title: "確認重新提交回復？",
+      description: "上次回覆請求結果未知，重複提交可能產生重複回覆，請確認已核對評論與回覆狀態。",
       confirmType: "danger",
       onConfirm: () => {
         awaitingReplyConfirmation.value = false;
@@ -282,13 +282,13 @@ async function runStandaloneCommentActions(intent: OriginCommentActionIntent) {
 
 function handleReject() {
   Dialog.warning({
-    title: "确认拒绝申请？",
+    title: "確認拒絕申請？",
     description: linkApplicationRejectDescription(props.application),
     confirmType: "danger",
     onConfirm: () => {
       rejectApplication(props.application.metadata.name, {
         onSuccess: () => {
-          Toast.success("已拒绝申请");
+          Toast.success("已拒絕申請");
           modal.value?.close();
         },
       });
@@ -307,9 +307,9 @@ function handleVerify() {
     {
       onSuccess: (result) => {
         if (result.found) {
-          Toast.success(result.message || "反链验证通过");
+          Toast.success(result.message || "反鏈驗證透過");
         } else {
-          Toast.warning(result.message || "反链验证未通过");
+          Toast.warning(result.message || "反鏈驗證未透過");
         }
       },
     },
@@ -318,13 +318,13 @@ function handleVerify() {
 
 function handleDelete() {
   Dialog.warning({
-    title: "确认删除申请？",
-    description: "删除后将无法恢复，确认继续吗？",
+    title: "確認刪除申請？",
+    description: "刪除後將無法恢復，確認繼續嗎？",
     confirmType: "danger",
     onConfirm: () => {
       deleteApplication(props.application.metadata.name, {
         onSuccess: () => {
-          Toast.success("删除成功");
+          Toast.success("刪除成功");
           modal.value?.close();
         },
       });
@@ -349,8 +349,8 @@ function handleDelete() {
         </span>
       </div>
 
-      <VAlert v-if="effectiveReviewMode === 'resume'" title="审批已保留" type="info" :closable="false">
-        <template #description> 审批字段已冻结，无法修改、拒绝或删除。点击“继续审批”以完成创建正式链接。 </template>
+      <VAlert v-if="effectiveReviewMode === 'resume'" title="審批已保留" type="info" :closable="false">
+        <template #description> 審批欄位已凍結，無法修改、拒絕或刪除。點選“繼續審批”以完成建立正式連結。 </template>
       </VAlert>
 
       <LinkApplicationOriginDetails :application="application" />
@@ -382,33 +382,33 @@ function handleDelete() {
           type="text"
           name="displayName"
           validation="required"
-          label="网站名称"
+          label="網站名稱"
         />
-        <FormKit v-model="approvalForm.url" type="url" name="url" validation="required" label="链接地址" />
+        <FormKit v-model="approvalForm.url" type="url" name="url" validation="required" label="連結地址" />
         <FormKit v-model="approvalForm.logo" type="url" name="logo" label="Logo" />
-        <FormKit v-model="approvalForm.description" type="textarea" name="description" label="简介" auto-height />
+        <FormKit v-model="approvalForm.description" type="textarea" name="description" label="簡介" auto-height />
         <FormKit
           v-model="approvalForm.groupName"
           type="select"
           name="groupName"
-          label="分配分组"
+          label="分配分組"
           :options="groupOptions"
         />
         <FormKit
           v-model="approvalForm.backlink"
           type="url"
           name="backlink"
-          label="反链地址"
-          help="填写对方固定放置本站链接的页面，留空则不检测反链"
+          label="反鏈地址"
+          help="填寫對方固定放置本站連結的頁面，留空則不檢測反鏈"
           placeholder="https://example.com/links"
         >
           <template v-if="verificationBacklink" #suffix>
             <button
               v-tooltip="{
-                content: '验证反链',
+                content: '驗證反鏈',
               }"
               type="button"
-              aria-label="验证反链"
+              aria-label="驗證反鏈"
               class=":uno: group h-full flex cursor-pointer items-center border-0 border-l border-gray-200 bg-transparent px-3 transition-all disabled:cursor-not-allowed hover:bg-gray-100 disabled:opacity-50"
               :disabled="isVerifying"
               @click="handleVerify"
@@ -423,7 +423,7 @@ function handleDelete() {
           type="textarea"
           name="feedUrlsText"
           label="RSS 地址"
-          help="每行一个 RSS 或 Atom 地址"
+          help="每行一個 RSS 或 Atom 地址"
           placeholder="https://example.com/rss.xml&#10;https://example.com/atom.xml"
           auto-height
         />
@@ -432,11 +432,11 @@ function handleDelete() {
       <!-- Frozen fields for approving / terminal applications -->
       <dl v-else class=":uno: overflow-hidden border border-gray-200 rounded-lg divide-y divide-gray-100">
         <div class=":uno: flex gap-3 px-3.5 py-2.5 text-sm">
-          <dt class=":uno: w-18 shrink-0 text-gray-500">网站名称</dt>
+          <dt class=":uno: w-18 shrink-0 text-gray-500">網站名稱</dt>
           <dd class=":uno: min-w-0 flex-1 break-all text-gray-900">{{ frozenFields.displayName }}</dd>
         </div>
         <div class=":uno: flex gap-3 px-3.5 py-2.5 text-sm">
-          <dt class=":uno: w-18 shrink-0 text-gray-500">链接地址</dt>
+          <dt class=":uno: w-18 shrink-0 text-gray-500">連結地址</dt>
           <dd class=":uno: min-w-0 flex-1">
             <a :href="frozenFields.url" target="_blank" class=":uno: break-all text-blue-600 hover:underline">
               {{ frozenFields.url }}
@@ -448,15 +448,15 @@ function handleDelete() {
           <dd class=":uno: min-w-0 flex-1 break-all text-gray-900">{{ frozenFields.logo }}</dd>
         </div>
         <div v-if="frozenFields.description" class=":uno: flex gap-3 px-3.5 py-2.5 text-sm">
-          <dt class=":uno: w-18 shrink-0 text-gray-500">简介</dt>
+          <dt class=":uno: w-18 shrink-0 text-gray-500">簡介</dt>
           <dd class=":uno: min-w-0 flex-1 whitespace-pre-wrap text-gray-900">{{ frozenFields.description }}</dd>
         </div>
         <div class=":uno: flex gap-3 px-3.5 py-2.5 text-sm">
-          <dt class=":uno: w-18 shrink-0 text-gray-500">分配分组</dt>
+          <dt class=":uno: w-18 shrink-0 text-gray-500">分配分組</dt>
           <dd class=":uno: min-w-0 flex-1 text-gray-900">{{ frozenGroupLabel }}</dd>
         </div>
         <div v-if="frozenFields.backlink" class=":uno: flex gap-3 px-3.5 py-2.5 text-sm">
-          <dt class=":uno: w-18 shrink-0 text-gray-500">反链地址</dt>
+          <dt class=":uno: w-18 shrink-0 text-gray-500">反鏈地址</dt>
           <dd class=":uno: min-w-0 flex-1">
             <a :href="frozenFields.backlink" target="_blank" class=":uno: break-all text-blue-600 hover:underline">
               {{ frozenFields.backlink }}
@@ -482,10 +482,10 @@ function handleDelete() {
           type="secondary"
           @click="$formkit.submit('link-application-form')"
         >
-          通过
+          透過
         </VButton>
-        <VButton :loading="isRejecting" type="danger" @click="handleReject"> 拒绝 </VButton>
-        <VButton type="default" @click="handleDelete">删除</VButton>
+        <VButton :loading="isRejecting" type="danger" @click="handleReject"> 拒絕 </VButton>
+        <VButton type="default" @click="handleDelete">刪除</VButton>
         <VButton @click="modal?.close()">取消</VButton>
       </VSpace>
       <VSpace v-else-if="effectiveReviewMode === 'resume'">
@@ -495,13 +495,13 @@ function handleDelete() {
           type="secondary"
           @click="handleResumeApproval"
         >
-          继续审批
+          繼續審批
         </VButton>
         <VButton @click="modal?.close()">取消</VButton>
       </VSpace>
       <VSpace v-else>
-        <VButton type="danger" @click="handleDelete">删除</VButton>
-        <VButton @click="modal?.close()">关闭</VButton>
+        <VButton type="danger" @click="handleDelete">刪除</VButton>
+        <VButton @click="modal?.close()">關閉</VButton>
       </VSpace>
     </template>
   </VModal>

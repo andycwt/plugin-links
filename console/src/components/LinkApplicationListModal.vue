@@ -76,17 +76,17 @@ const { mutate: deleteApplication } = useDeleteLinkApplication();
 const { mutateAsync: cleanupApplications, isPending: isCleaningUp } = useCleanupLinkApplications();
 
 const statusFilterOptions = [
-  { label: "全部状态", value: "" },
-  { label: "待审核", value: "PENDING" },
-  { label: "审批中", value: "APPROVING" },
-  { label: "已通过", value: "APPROVED" },
-  { label: "已拒绝", value: "REJECTED" },
+  { label: "全部狀態", value: "" },
+  { label: "待稽核", value: "PENDING" },
+  { label: "審批中", value: "APPROVING" },
+  { label: "已透過", value: "APPROVED" },
+  { label: "已拒絕", value: "REJECTED" },
 ];
 
 const originTypeFilterOptions = [
-  { label: "全部来源", value: "" },
-  { label: "表单申请", value: "FORM" },
-  { label: "评论识别", value: "COMMENT" },
+  { label: "全部來源", value: "" },
+  { label: "表單申請", value: "FORM" },
+  { label: "評論識別", value: "COMMENT" },
 ];
 
 const statusDotStates: Record<LinkApplicationSpecStatusEnum, StatusDotState> = {
@@ -98,13 +98,13 @@ const statusDotStates: Record<LinkApplicationSpecStatusEnum, StatusDotState> = {
 
 function handleDelete(app: LinkApplication) {
   Dialog.warning({
-    title: "确认删除申请？",
-    description: `删除后将无法恢复，确认删除 "${app.spec.displayName}" 的申请吗？`,
+    title: "確認刪除申請？",
+    description: `刪除後將無法恢復，確認刪除 "${app.spec.displayName}" 的申請嗎？`,
     confirmType: "danger",
     onConfirm: () => {
       deleteApplication(app.metadata.name, {
         onSuccess: () => {
-          Toast.success("删除成功");
+          Toast.success("刪除成功");
         },
       });
     },
@@ -116,7 +116,7 @@ function handleCleanup() {
     return;
   }
   Dialog.warning({
-    title: "确认清理当前筛选结果？",
+    title: "確認清理當前篩選結果？",
     description: linkApplicationCleanupDescription({
       total: total.value,
       status: statusFilter.value || undefined,
@@ -142,11 +142,11 @@ function handleCleanup() {
 </script>
 
 <template>
-  <VModal ref="modal" title="友链申请" :width="900" :mount-to-body="true" :centered="false" @close="emit('close')">
+  <VModal ref="modal" title="友鏈申請" :width="900" :mount-to-body="true" :centered="false" @close="emit('close')">
     <div>
       <div class=":uno: mb-3 flex flex-wrap items-center gap-2">
-        <FilterDropdown v-model="statusFilter" label="状态" :items="statusFilterOptions" />
-        <FilterDropdown v-model="originTypeFilter" label="来源" :items="originTypeFilterOptions" />
+        <FilterDropdown v-model="statusFilter" label="狀態" :items="statusFilterOptions" />
+        <FilterDropdown v-model="originTypeFilter" label="來源" :items="originTypeFilterOptions" />
         <div class=":uno: ml-auto">
           <VButton size="sm" type="danger" ghost :disabled="!total" :loading="isCleaningUp" @click="handleCleanup">
             清理
@@ -156,7 +156,7 @@ function handleCleanup() {
 
       <VLoading v-if="isLoading" />
 
-      <VEmpty v-else-if="!applications.length" title="暂无符合条件的申请" />
+      <VEmpty v-else-if="!applications.length" title="暫無符合條件的申請" />
 
       <div v-else class=":uno: rounded-base overflow-hidden border">
         <VEntityContainer>
@@ -205,11 +205,11 @@ function handleCleanup() {
 
             <template #dropdownItems>
               <VDropdownItem @click="emit('view-detail', app)">
-                {{ app.spec.status === "APPROVING" ? "继续审批" : app.spec.status === "PENDING" ? "审核" : "查看" }}
+                {{ app.spec.status === "APPROVING" ? "繼續審批" : app.spec.status === "PENDING" ? "稽核" : "檢視" }}
               </VDropdownItem>
               <template v-if="app.spec.status !== 'APPROVING'">
                 <VDropdownDivider />
-                <VDropdownItem type="danger" @click="handleDelete(app)">删除</VDropdownItem>
+                <VDropdownItem type="danger" @click="handleDelete(app)">刪除</VDropdownItem>
               </template>
             </template>
           </VEntity>
@@ -222,7 +222,7 @@ function handleCleanup() {
     </div>
 
     <template #footer>
-      <VButton @click="modal?.close()">关闭</VButton>
+      <VButton @click="modal?.close()">關閉</VButton>
     </template>
   </VModal>
 </template>

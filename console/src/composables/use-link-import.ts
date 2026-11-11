@@ -41,13 +41,13 @@ export function isHttpUrl(value: string) {
 
 export function getParsedItemErrorMessage(item: ParsedItem, { requireDisplayName = true }: ValidationOptions = {}) {
   if (!item.url.trim()) {
-    return "URL 不能为空";
+    return "URL 不能為空";
   }
   if (!isHttpUrl(item.url.trim())) {
-    return "URL 格式不正确";
+    return "URL 格式不正確";
   }
   if (requireDisplayName && !item.displayName.trim()) {
-    return "名称不能为空";
+    return "名稱不能為空";
   }
   return "";
 }
@@ -59,8 +59,8 @@ export function getParsedItemStatusMeta(item: ParsedItem): { tone: ParsedItemSta
 
   const errorMessage = getParsedItemErrorMessage(item);
   if (errorMessage) {
-    if (item.status === "failed" && errorMessage === "名称不能为空") {
-      return { tone: "error", label: "获取链接详情失败，请手动补充名称" };
+    if (item.status === "failed" && errorMessage === "名稱不能為空") {
+      return { tone: "error", label: "獲取連結詳情失敗，請手動補充名稱" };
     }
     return { tone: "error", label: errorMessage };
   }
@@ -70,10 +70,10 @@ export function getParsedItemStatusMeta(item: ParsedItem): { tone: ParsedItemSta
   }
 
   if (item.status === "failed") {
-    return { tone: "error", label: "解析失败，可手动补充" };
+    return { tone: "error", label: "解析失敗，可手動補充" };
   }
 
-  return { tone: "manual", label: "手动" };
+  return { tone: "manual", label: "手動" };
 }
 
 export function normalizeParsedItem(item: ParsedItem): ParsedItem {

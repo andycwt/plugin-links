@@ -18,11 +18,11 @@ export interface LinkApplicationSubjectMeta {
 
 const linkApplicationSourceMetas: Record<OriginTypeEnum, LinkApplicationSourceMeta> = {
   FORM: {
-    label: "表单申请",
+    label: "表單申請",
     tagType: "primary",
   },
   COMMENT: {
-    label: "评论识别",
+    label: "評論識別",
     tagType: "success",
   },
 };
@@ -42,7 +42,7 @@ export function linkApplicationSubjectMeta(
   const kindName = subject.kindName?.trim();
 
   return {
-    label: title ? (kindName ? `${kindName} · ${title}` : title) : kindName || "评论来源",
+    label: title ? (kindName ? `${kindName} · ${title}` : title) : kindName || "評論來源",
     url: subject.url?.trim() || undefined,
   };
 }

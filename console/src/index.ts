@@ -14,9 +14,9 @@ export default definePlugin({
         component: () => import("@/views/LinkList.vue"),
         meta: {
           permissions: ["plugin:links:view"],
-          title: "链接",
+          title: "連結",
           menu: {
-            name: "链接",
+            name: "連結",
             group: "content",
             icon: markRaw(RiLinksLine),
             priority: 50,
@@ -32,10 +32,10 @@ export default definePlugin({
         component: () => import("@/views/LinkFeedList.vue"),
         meta: {
           permissions: ["plugin:links:view"],
-          title: "链接订阅",
+          title: "連結訂閱",
           hideFooter: true,
           menu: {
-            name: "订阅",
+            name: "訂閱",
             group: "content",
             icon: markRaw(Rss2FillIcon),
             priority: 51,
@@ -52,8 +52,8 @@ export default definePlugin({
           group: "plugin.halo.run",
           resolve: (): CommentSubjectRefResult => {
             return {
-              label: "链接",
-              title: "链接页面",
+              label: "連結",
+              title: "連結頁面",
               externalUrl: "/links",
               route: {
                 name: "Links",

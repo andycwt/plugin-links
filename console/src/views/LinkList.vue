@@ -67,8 +67,8 @@ function openLinkApplicationList(initialStatus = "") {
 
 const statusFilterOptions: Array<{ label: string; value: LinkVerificationStatusFilter }> = [
   { label: "全部", value: "all" },
-  { label: "访问异常的链接", value: "access-error" },
-  { label: "没有反链的链接", value: "backlink-missing" },
+  { label: "訪問異常的連結", value: "access-error" },
+  { label: "沒有反鏈的連結", value: "backlink-missing" },
 ];
 
 const filteredGroups = computed(() => filterGroupsByStatus(data.value || [], selectedStatusFilter.value));
@@ -79,8 +79,8 @@ function handleVerifyAllLinks() {
   }
 
   Dialog.warning({
-    title: "确认检测全部链接？",
-    description: "系统会在后台按队列逐个检测所有链接。检测可能需要一定时间，请稍后刷新页面查看。确认继续吗？",
+    title: "確認檢測全部連結？",
+    description: "系統會在後台按佇列逐個檢測所有連結。檢測可能需要一定時間，請稍後重新整理頁面檢視。確認繼續嗎？",
     confirmType: "primary",
     onConfirm: verifyAllLinks,
   });
@@ -116,7 +116,7 @@ function filterGroupsByStatus(groups: GroupWithLinks[], filter: LinkVerification
 }
 </script>
 <template>
-  <VPageHeader title="链接">
+  <VPageHeader title="連結">
     <template #icon>
       <RiLinksLine />
     </template>
@@ -125,33 +125,33 @@ function filterGroupsByStatus(groups: GroupWithLinks[], filter: LinkVerification
         <template #icon>
           <IconExternalLinkLine />
         </template>
-        跳转到前台
+        跳轉到前臺
       </VButton>
     </template>
   </VPageHeader>
   <div class=":uno: p-4">
     <VAlert
       v-if="recognitionUnavailable"
-      title="评论友链申请自动识别当前不可用"
+      title="評論友鏈申請自動識別當前不可用"
       type="warning"
       :closable="false"
       class=":uno: mb-4"
     >
       <template #description>
-        自动识别已配置，但 AI Foundation 或所选模型当前不可用。新的评论不会补偿处理，其他链接管理功能不受影响。
+        自動識別已配置，但 AI Foundation 或所選模型當前不可用。新的評論不會補償處理，其他連結管理功能不受影響。
       </template>
     </VAlert>
 
     <VAlert
       v-if="pendingCount > 0"
-      :title="`有 ${pendingCount} 条待审核的友链申请`"
+      :title="`有 ${pendingCount} 條待稽核的友鏈申請`"
       type="default"
       :closable="false"
       class=":uno: mb-4"
     >
       <template #description>
         <button @click="openLinkApplicationList('PENDING')" class=":uno: cursor-pointer hover:underline">
-          查看并处理申请
+          檢視並處理申請
         </button>
       </template>
     </VAlert>
@@ -160,23 +160,23 @@ function filterGroupsByStatus(groups: GroupWithLinks[], filter: LinkVerification
       class=":uno: mb-4 flex flex-col gap-3 border border-gray-200 rounded-lg bg-white/90 p-3 shadow-sm md:flex-row md:items-center md:justify-between"
     >
       <VSpace class=":uno: flex-wrap">
-        <VButton size="sm" @click="groupCreationModalVisible = true">新建分组</VButton>
-        <VButton size="sm" @click="groupSortModalVisible = true">调整排序</VButton>
-        <VButton size="sm" @click="linkImportModalVisible = true">批量导入</VButton>
-        <VButton size="sm" @click="openLinkApplicationList()">友链申请</VButton>
+        <VButton size="sm" @click="groupCreationModalVisible = true">新建分組</VButton>
+        <VButton size="sm" @click="groupSortModalVisible = true">調整排序</VButton>
+        <VButton size="sm" @click="linkImportModalVisible = true">批次匯入</VButton>
+        <VButton size="sm" @click="openLinkApplicationList()">友鏈申請</VButton>
         <VButton size="sm" :loading="isVerifyingAllLinks" @click="handleVerifyAllLinks">
           <template #icon>
             <RiPulseLine />
           </template>
-          检测全部
+          檢測全部
         </VButton>
       </VSpace>
 
       <div class=":uno: flex items-center gap-2">
-        <FilterDropdown v-model="selectedStatusFilter" label="状态" :items="statusFilterOptions" />
+        <FilterDropdown v-model="selectedStatusFilter" label="狀態" :items="statusFilterOptions" />
 
         <button
-          v-tooltip="'刷新'"
+          v-tooltip="'重新整理'"
           type="button"
           class=":uno: group cursor-pointer rounded p-1 hover:bg-gray-200"
           @click="refetch()"
@@ -203,7 +203,7 @@ function filterGroupsByStatus(groups: GroupWithLinks[], filter: LinkVerification
       v-else
       class=":uno: border border-gray-200 rounded-lg border-dashed bg-white py-12 text-center text-sm text-gray-500"
     >
-      暂无符合条件的链接
+      暫無符合條件的連結
     </div>
   </div>
 

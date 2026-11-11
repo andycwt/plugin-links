@@ -140,29 +140,29 @@ describe("originCommentActionIntentEmpty", () => {
 describe("linkApplicationActionSummary", () => {
   it("summarizes link approval combined with comment approval", () => {
     expect(linkApplicationActionSummary({ includesLinkApproval: true, intent: { approve: true, replyText: "" } })).toBe(
-      "通过申请，并通过来源评论",
+      "透過申請，並透過來源評論",
     );
   });
 
   it("notes that a reply also approves the comment", () => {
     expect(
-      linkApplicationActionSummary({ includesLinkApproval: true, intent: { approve: true, replyText: "欢迎" } }),
-    ).toBe("通过申请，并回复来源评论（评论将随之通过）");
+      linkApplicationActionSummary({ includesLinkApproval: true, intent: { approve: true, replyText: "歡迎" } }),
+    ).toBe("透過申請，並回復來源評論（評論將隨之透過）");
   });
 
   it("states plainly when no comment action is selected", () => {
     expect(
       linkApplicationActionSummary({ includesLinkApproval: true, intent: { approve: false, replyText: "" } }),
-    ).toBe("仅通过申请，不处理来源评论");
+    ).toBe("僅透過申請，不處理來源評論");
   });
 
   it("summarizes standalone comment actions", () => {
     expect(
       linkApplicationActionSummary({ includesLinkApproval: false, intent: { approve: true, replyText: "" } }),
-    ).toBe("将通过来源评论");
+    ).toBe("將透過來源評論");
     expect(
       linkApplicationActionSummary({ includesLinkApproval: false, intent: { approve: false, replyText: "" } }),
-    ).toBe("未选择评论操作");
+    ).toBe("未選擇評論操作");
   });
 });
 
@@ -205,25 +205,25 @@ describe("originCommentOutcomeRequiresReplyConfirmation", () => {
 describe("originCommentActionSuccessMessage", () => {
   it("combines link and comment results", () => {
     expect(originCommentActionSuccessMessage({ type: "completed", approvedComment: true, replied: false }, true)).toBe(
-      "已通过申请，并通过来源评论",
+      "已透過申請，並透過來源評論",
     );
     expect(originCommentActionSuccessMessage({ type: "completed", approvedComment: false, replied: true }, true)).toBe(
-      "已通过申请，并回复来源评论",
+      "已透過申請，並回復來源評論",
     );
   });
 
   it("falls back to plain link approval when no comment action ran", () => {
     expect(originCommentActionSuccessMessage({ type: "completed", approvedComment: false, replied: false }, true)).toBe(
-      "已通过申请",
+      "已透過申請",
     );
   });
 
   it("reports standalone comment results", () => {
     expect(originCommentActionSuccessMessage({ type: "completed", approvedComment: true, replied: false }, false)).toBe(
-      "已通过来源评论",
+      "已透過來源評論",
     );
     expect(originCommentActionSuccessMessage({ type: "completed", approvedComment: false, replied: true }, false)).toBe(
-      "已回复来源评论",
+      "已回覆來源評論",
     );
   });
 });
@@ -234,9 +234,9 @@ describe("originCommentActionFailureAlert", () => {
       outcome: { type: "failed", action: "approve" },
       includesLinkApproval: true,
     });
-    expect(alert.title).toContain("链接已通过");
-    expect(alert.title).toContain("通过来源评论失败");
-    expect(alert.description).toContain("链接已通过且不受影响");
+    expect(alert.title).toContain("連結已透過");
+    expect(alert.title).toContain("透過來源評論失敗");
+    expect(alert.description).toContain("連結已透過且不受影響");
   });
 
   it("does not mention the link for standalone comment failures", () => {
@@ -244,8 +244,8 @@ describe("originCommentActionFailureAlert", () => {
       outcome: { type: "failed", action: "reply" },
       includesLinkApproval: false,
     });
-    expect(alert.title).not.toContain("链接已通过");
-    expect(alert.title).toContain("回复来源评论失败");
+    expect(alert.title).not.toContain("連結已透過");
+    expect(alert.title).toContain("回覆來源評論失敗");
   });
 
   it("reports an indeterminate reply without claiming failure", () => {
@@ -253,12 +253,12 @@ describe("originCommentActionFailureAlert", () => {
       outcome: { type: "indeterminate", action: "reply", commentApproved: true, recentReplyCount: 3 },
       includesLinkApproval: true,
     });
-    expect(alert.title).toContain("回复结果未知");
-    expect(alert.description).not.toContain("回复失败");
-    expect(alert.description).toContain("不会自动重试");
-    expect(alert.description).toContain("来源评论当前已通过");
-    expect(alert.description).toContain("最近共有 3 条回复");
-    expect(alert.description).toContain("再决定是否重新提交");
+    expect(alert.title).toContain("回覆結果未知");
+    expect(alert.description).not.toContain("回覆失敗");
+    expect(alert.description).toContain("不會自動重試");
+    expect(alert.description).toContain("來源評論當前已透過");
+    expect(alert.description).toContain("最近共有 3 條回覆");
+    expect(alert.description).toContain("再決定是否重新提交");
   });
 
   it("notes the failed state refresh when an approval outcome is indeterminate", () => {
@@ -266,9 +266,9 @@ describe("originCommentActionFailureAlert", () => {
       outcome: { type: "indeterminate", action: "approve" },
       includesLinkApproval: true,
     });
-    expect(alert.title).toContain("评论审批结果未知");
-    expect(alert.description).toContain("重新提交审批是安全的");
-    expect(alert.description).toContain("当前状态刷新失败");
+    expect(alert.title).toContain("評論審批結果未知");
+    expect(alert.description).toContain("重新提交審批是安全的");
+    expect(alert.description).toContain("當前狀態重新整理失敗");
   });
 
   it("notes the failed state refresh when indeterminate details could not be loaded", () => {
@@ -276,7 +276,7 @@ describe("originCommentActionFailureAlert", () => {
       outcome: { type: "indeterminate", action: "reply" },
       includesLinkApproval: false,
     });
-    expect(alert.description).not.toContain("已刷新当前状态");
-    expect(alert.description).toContain("当前状态刷新失败");
+    expect(alert.description).not.toContain("已重新整理當前狀態");
+    expect(alert.description).toContain("當前狀態重新整理失敗");
   });
 });

@@ -76,20 +76,20 @@ export function normalizeLinkVerificationRequest(request: LinkVerificationReques
 export function linkVerificationResultMessage(result: LinkVerificationTriggerResult) {
   const acceptedCount = result.acceptedCount ?? result.acceptedNames?.length ?? 0;
   if (acceptedCount) {
-    return `已开始检测 ${acceptedCount} 个链接`;
+    return `已開始檢測 ${acceptedCount} 個連結`;
   }
 
   const alreadyRunningCount = result.alreadyRunningCount ?? result.alreadyRunningNames?.length ?? 0;
   if (alreadyRunningCount) {
-    return `${alreadyRunningCount} 个链接正在检测中`;
+    return `${alreadyRunningCount} 個連結正在檢測中`;
   }
 
   const skippedCount = result.skippedCount ?? result.skippedNames?.length ?? 0;
   if (skippedCount) {
-    return "没有可检测的链接";
+    return "沒有可檢測的連結";
   }
 
-  return "没有可检测的链接";
+  return "沒有可檢測的連結";
 }
 
 function hasAcceptedLinks(result: LinkVerificationTriggerResult) {

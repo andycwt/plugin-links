@@ -75,8 +75,8 @@ describe("LinkApplicationOriginCommentActions", () => {
   it("explains and disables controls without the required permissions", async () => {
     const { wrapper } = mountActions({ canManageComments: false });
 
-    expect(wrapper.text()).toContain("缺少友链管理");
-    expect(wrapper.text()).toContain("评论管理");
+    expect(wrapper.text()).toContain("缺少友鏈管理");
+    expect(wrapper.text()).toContain("評論管理");
     expect(wrapper.find("input[type=checkbox]").attributes("disabled")).toBeDefined();
     expect(wrapper.find("textarea").attributes("disabled")).toBeDefined();
 
@@ -86,14 +86,14 @@ describe("LinkApplicationOriginCommentActions", () => {
 
   it("warns that a hidden comment stays hidden", () => {
     const { wrapper } = mountActions({ view: buildView({ hidden: true }) });
-    expect(wrapper.text()).toContain("评论处于隐藏状态");
-    expect(wrapper.text()).toContain("不会改变其隐藏状态");
+    expect(wrapper.text()).toContain("評論處於隱藏狀態");
+    expect(wrapper.text()).toContain("不會改變其隱藏狀態");
   });
 
   it("explains a deleted source without blocking link review", () => {
     const { wrapper } = mountActions({ view: buildView({ commentState: "deleted" }) });
-    expect(wrapper.text()).toContain("来源评论不可用");
-    expect(wrapper.text()).toContain("不影响链接审核");
+    expect(wrapper.text()).toContain("來源評論不可用");
+    expect(wrapper.text()).toContain("不影響連結稽核");
     expect(wrapper.find("input[type=checkbox]").exists()).toBe(false);
     expect(wrapper.find("textarea").exists()).toBe(false);
   });
@@ -109,24 +109,24 @@ describe("LinkApplicationOriginCommentActions", () => {
     const checkbox = wrapper.find("input[type=checkbox]");
     expect(checkbox.attributes("disabled")).toBeUndefined();
 
-    await wrapper.find("textarea").setValue("收到，稍后处理");
+    await wrapper.find("textarea").setValue("收到，稍後處理");
     expect(wrapper.find("input[type=checkbox]").attributes("disabled")).toBeDefined();
-    expect(wrapper.text()).toContain("回复后评论将自动通过");
+    expect(wrapper.text()).toContain("回覆後評論將自動透過");
   });
 
   it("summarizes the selected link and comment actions", async () => {
     const { wrapper } = mountActions({ approve: true });
-    expect(wrapper.text()).toContain("通过申请，并通过来源评论");
+    expect(wrapper.text()).toContain("透過申請，並透過來源評論");
 
     await wrapper.find("input[type=checkbox]").setValue(false);
-    expect(wrapper.text()).toContain("仅通过申请，不处理来源评论");
+    expect(wrapper.text()).toContain("僅透過申請，不處理來源評論");
   });
 
   it("never promises comment actions in the summary without the required permissions", () => {
     const { wrapper } = mountActions({ canManageComments: false, approve: true, replyText: "收到" });
-    expect(wrapper.text()).toContain("仅通过申请，不处理来源评论");
-    expect(wrapper.text()).not.toContain("并通过来源评论");
-    expect(wrapper.text()).not.toContain("并回复来源评论");
+    expect(wrapper.text()).toContain("僅透過申請，不處理來源評論");
+    expect(wrapper.text()).not.toContain("並透過來源評論");
+    expect(wrapper.text()).not.toContain("並回復來源評論");
   });
 
   it("emits the selected intent from the standalone button on approved applications", async () => {
@@ -152,8 +152,8 @@ describe("LinkApplicationOriginCommentActions", () => {
     await button.trigger("click");
     expect(wrapper.emitted("submit")).toBeUndefined();
 
-    await wrapper.find("textarea").setValue("欢迎交换友链");
+    await wrapper.find("textarea").setValue("歡迎交換友鏈");
     await wrapper.find("button").trigger("click");
-    expect(wrapper.emitted("submit")?.[0]).toEqual([{ approve: false, replyText: "欢迎交换友链" }]);
+    expect(wrapper.emitted("submit")?.[0]).toEqual([{ approve: false, replyText: "歡迎交換友鏈" }]);
   });
 });

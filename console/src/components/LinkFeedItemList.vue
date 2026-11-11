@@ -83,8 +83,8 @@ watch([isLoadMoreTriggerVisible, hasNext, isLoading, isLoadingMore], () => {
     />
 
     <div v-if="hasNext || isLoadingMore" ref="loadMoreTrigger" class=":uno: feed-stream__footer">
-      <span v-if="isLoadingMore" class=":uno: feed-stream__loading" role="status">加载中...</span>
-      <VButton v-else-if="hasNext && !isIntersectionObserverSupported" @click="feed.fetchNextPage()">加载更多</VButton>
+      <span v-if="isLoadingMore" class=":uno: feed-stream__loading" role="status">載入中...</span>
+      <VButton v-else-if="hasNext && !isIntersectionObserverSupported" @click="feed.fetchNextPage()">載入更多</VButton>
     </div>
   </div>
 </template>

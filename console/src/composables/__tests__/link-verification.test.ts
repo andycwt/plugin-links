@@ -84,7 +84,7 @@ describe("runLinkVerification", () => {
     });
 
     expect(harness.verifyCalls).toEqual([{ linkVerificationRequest: { names: ["link-a", "link-b"] } }]);
-    expect(harness.successMessages).toEqual(["已开始检测 2 个链接"]);
+    expect(harness.successMessages).toEqual(["已開始檢測 2 個連結"]);
     expect(harness.invalidateCalls).toEqual([[QK_GROUPS_WITH_LINKS]]);
   });
 
@@ -154,8 +154,8 @@ describe("startLinkVerification", () => {
 
 describe("linkVerificationResultMessage", () => {
   it("summarizes accepted, running, and empty results", () => {
-    expect(linkVerificationResultMessage({ acceptedCount: 3 })).toBe("已开始检测 3 个链接");
-    expect(linkVerificationResultMessage({ alreadyRunningNames: ["link-a"] })).toBe("1 个链接正在检测中");
-    expect(linkVerificationResultMessage({ skippedCount: 2 })).toBe("没有可检测的链接");
+    expect(linkVerificationResultMessage({ acceptedCount: 3 })).toBe("已開始檢測 3 個連結");
+    expect(linkVerificationResultMessage({ alreadyRunningNames: ["link-a"] })).toBe("1 個連結正在檢測中");
+    expect(linkVerificationResultMessage({ skippedCount: 2 })).toBe("沒有可檢測的連結");
   });
 });

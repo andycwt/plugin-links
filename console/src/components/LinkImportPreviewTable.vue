@@ -41,7 +41,7 @@ function isStatusTone(item: ParsedItem, tone: ParsedItemStatusTone) {
         class=":uno: h-4 w-4 border-gray-300 rounded text-indigo-600"
         @change="handleToggleAll"
       />
-      <span>全选</span>
+      <span>全選</span>
     </label>
 
     <div
@@ -91,7 +91,7 @@ function isStatusTone(item: ParsedItem, tone: ParsedItemStatusTone) {
         :id="`displayName-mobile-${item.id}`"
         :name="`displayName-mobile-${item.id}`"
         type="text"
-        placeholder="名称"
+        placeholder="名稱"
         :classes="{
           outer: '!py-0',
           wrapper: '!mb-0',
@@ -126,7 +126,7 @@ function isStatusTone(item: ParsedItem, tone: ParsedItemStatusTone) {
         :id="`logo-mobile-${item.id}`"
         :name="`logo-mobile-${item.id}`"
         type="text"
-        placeholder="图标 URL"
+        placeholder="圖示 URL"
         :classes="{
           outer: '!py-0',
           wrapper: '!mb-0',
@@ -149,13 +149,13 @@ function isStatusTone(item: ParsedItem, tone: ParsedItemStatusTone) {
             />
           </th>
           <th class=":uno: w-[260px] px-3 py-2 text-left text-xs text-gray-500 font-medium tracking-wider uppercase">
-            名称
+            名稱
           </th>
           <th class=":uno: w-[360px] px-3 py-2 text-left text-xs text-gray-500 font-medium tracking-wider uppercase">
             URL
           </th>
           <th class=":uno: w-[160px] px-3 py-2 text-left text-xs text-gray-500 font-medium tracking-wider uppercase">
-            状态
+            狀態
           </th>
         </tr>
       </thead>
@@ -216,7 +216,7 @@ function isStatusTone(item: ParsedItem, tone: ParsedItemStatusTone) {
               :id="`logo-${item.id}`"
               :name="`logo-${item.id}`"
               type="text"
-              placeholder="图标 URL"
+              placeholder="圖示 URL"
               :classes="{
                 outer: '!py-0 !mt-1',
                 wrapper: '!mb-0',

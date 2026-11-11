@@ -95,7 +95,7 @@ describe("LinkApplicationDetailModal origin comment orchestration", () => {
     apiMocks.permissionHas.mockReturnValue(true);
     apiMocks.queryLinkGroups.mockResolvedValue({ data: [] });
     apiMocks.getLinkApplicationOriginComment.mockResolvedValue({
-      data: { name: "comment-a", raw: "互链吗？", approved: false, hidden: false },
+      data: { name: "comment-a", raw: "互鏈嗎？", approved: false, hidden: false },
     });
   });
 
@@ -111,11 +111,11 @@ describe("LinkApplicationDetailModal origin comment orchestration", () => {
     });
     const { wrapper } = mountModal();
 
-    await clickButton(wrapper, "继续审批");
+    await clickButton(wrapper, "繼續審批");
 
     expect(order).toEqual(["link", "comment"]);
     expect(apiMocks.patchComment).toHaveBeenCalledTimes(1);
-    expect(toastSuccessSpy).toHaveBeenCalledWith("已通过申请，并通过来源评论");
+    expect(toastSuccessSpy).toHaveBeenCalledWith("已透過申請，並透過來源評論");
     expect(apiMocks.modalClose).toHaveBeenCalledTimes(1);
   });
 
@@ -123,7 +123,7 @@ describe("LinkApplicationDetailModal origin comment orchestration", () => {
     apiMocks.approveLinkApplication.mockRejectedValue({ isAxiosError: true, response: { status: 400 } });
     const { wrapper } = mountModal();
 
-    await clickButton(wrapper, "继续审批");
+    await clickButton(wrapper, "繼續審批");
 
     expect(apiMocks.patchComment).not.toHaveBeenCalled();
     expect(apiMocks.createReply).not.toHaveBeenCalled();
@@ -135,20 +135,20 @@ describe("LinkApplicationDetailModal origin comment orchestration", () => {
     apiMocks.patchComment.mockRejectedValueOnce({ isAxiosError: true, response: { status: 409 } });
     const { wrapper } = mountModal();
 
-    await clickButton(wrapper, "继续审批");
+    await clickButton(wrapper, "繼續審批");
 
     expect(apiMocks.modalClose).not.toHaveBeenCalled();
-    expect(wrapper.text()).toContain("链接已通过");
-    expect(wrapper.text()).toContain("通过来源评论失败");
-    expect(wrapper.text()).toContain("链接已通过且不受影响");
-    expect(wrapper.find("button").text()).not.toContain("继续审批");
+    expect(wrapper.text()).toContain("連結已透過");
+    expect(wrapper.text()).toContain("透過來源評論失敗");
+    expect(wrapper.text()).toContain("連結已透過且不受影響");
+    expect(wrapper.find("button").text()).not.toContain("繼續審批");
 
     apiMocks.patchComment.mockResolvedValue({ data: {} });
-    await clickButton(wrapper, "处理评论");
+    await clickButton(wrapper, "處理評論");
 
     expect(apiMocks.approveLinkApplication).toHaveBeenCalledTimes(1);
     expect(apiMocks.patchComment).toHaveBeenCalledTimes(2);
-    expect(toastSuccessSpy).toHaveBeenCalledWith("已通过申请，并通过来源评论");
+    expect(toastSuccessSpy).toHaveBeenCalledWith("已透過申請，並透過來源評論");
     expect(apiMocks.modalClose).toHaveBeenCalledTimes(1);
   });
 
@@ -157,13 +157,13 @@ describe("LinkApplicationDetailModal origin comment orchestration", () => {
     apiMocks.patchComment.mockRejectedValueOnce({ isAxiosError: true, response: { status: 403 } });
     const { wrapper } = mountModal();
 
-    await clickButton(wrapper, "继续审批");
+    await clickButton(wrapper, "繼續審批");
 
     expect(apiMocks.modalClose).not.toHaveBeenCalled();
-    expect(wrapper.text()).toContain("链接已通过");
-    expect(wrapper.text()).toContain("缺少友链管理");
+    expect(wrapper.text()).toContain("連結已透過");
+    expect(wrapper.text()).toContain("缺少友鏈管理");
 
-    const retryButton = wrapper.findAll("button").find((item) => item.text() === "处理评论");
+    const retryButton = wrapper.findAll("button").find((item) => item.text() === "處理評論");
     expect(retryButton?.attributes("disabled")).toBeDefined();
     await retryButton?.trigger("click");
     await flushPromises();
@@ -176,13 +176,13 @@ describe("LinkApplicationDetailModal origin comment orchestration", () => {
     const { wrapper } = mountModal();
 
     await flushPromises();
-    await wrapper.find("textarea").setValue("欢迎交换友链");
-    await clickButton(wrapper, "继续审批");
+    await wrapper.find("textarea").setValue("歡迎交換友鏈");
+    await clickButton(wrapper, "繼續審批");
 
     expect(apiMocks.patchComment).not.toHaveBeenCalled();
     expect(apiMocks.createReply).toHaveBeenCalledTimes(1);
-    expect(apiMocks.createReply.mock.calls[0][0].replyRequest.raw).toBe("欢迎交换友链");
-    expect(toastSuccessSpy).toHaveBeenCalledWith("已通过申请，并回复来源评论");
+    expect(apiMocks.createReply.mock.calls[0][0].replyRequest.raw).toBe("歡迎交換友鏈");
+    expect(toastSuccessSpy).toHaveBeenCalledWith("已透過申請，並回復來源評論");
     expect(apiMocks.modalClose).toHaveBeenCalledTimes(1);
   });
 
@@ -193,15 +193,15 @@ describe("LinkApplicationDetailModal origin comment orchestration", () => {
     const { wrapper } = mountModal();
 
     await flushPromises();
-    await wrapper.find("textarea").setValue("欢迎交换友链");
-    await clickButton(wrapper, "继续审批");
+    await wrapper.find("textarea").setValue("歡迎交換友鏈");
+    await clickButton(wrapper, "繼續審批");
 
     expect(apiMocks.createReply).toHaveBeenCalledTimes(1);
     expect(apiMocks.modalClose).not.toHaveBeenCalled();
-    expect(wrapper.text()).toContain("回复结果未知");
-    expect(wrapper.text()).toContain("不会自动重试");
+    expect(wrapper.text()).toContain("回覆結果未知");
+    expect(wrapper.text()).toContain("不會自動重試");
 
-    await clickButton(wrapper, "处理评论");
+    await clickButton(wrapper, "處理評論");
 
     expect(dialogWarningSpy).toHaveBeenCalledTimes(1);
     expect(apiMocks.createReply).toHaveBeenCalledTimes(1);
@@ -220,13 +220,13 @@ describe("LinkApplicationDetailModal origin comment orchestration", () => {
     apiMocks.approveLinkApplication.mockResolvedValue({ data: {} });
     const { wrapper } = mountModal();
 
-    expect(wrapper.text()).toContain("缺少友链管理");
+    expect(wrapper.text()).toContain("缺少友鏈管理");
 
-    await clickButton(wrapper, "继续审批");
+    await clickButton(wrapper, "繼續審批");
 
     expect(apiMocks.patchComment).not.toHaveBeenCalled();
     expect(apiMocks.createReply).not.toHaveBeenCalled();
-    expect(toastSuccessSpy).toHaveBeenCalledWith("已通过申请");
+    expect(toastSuccessSpy).toHaveBeenCalledWith("已透過申請");
     expect(apiMocks.modalClose).toHaveBeenCalledTimes(1);
   });
 
@@ -234,13 +234,13 @@ describe("LinkApplicationDetailModal origin comment orchestration", () => {
     apiMocks.approveLinkApplication.mockResolvedValue({ data: {} });
     const { wrapper } = mountModal(formApplication());
 
-    await clickButton(wrapper, "继续审批");
+    await clickButton(wrapper, "繼續審批");
 
     expect(apiMocks.getLinkApplicationOriginComment).not.toHaveBeenCalled();
     expect(apiMocks.patchComment).not.toHaveBeenCalled();
     expect(apiMocks.createReply).not.toHaveBeenCalled();
-    expect(wrapper.text()).not.toContain("失败");
-    expect(toastSuccessSpy).toHaveBeenCalledWith("已通过申请");
+    expect(wrapper.text()).not.toContain("失敗");
+    expect(toastSuccessSpy).toHaveBeenCalledWith("已透過申請");
     expect(apiMocks.modalClose).toHaveBeenCalledTimes(1);
   });
 
@@ -249,7 +249,7 @@ describe("LinkApplicationDetailModal origin comment orchestration", () => {
     const { wrapper } = mountModal();
 
     await flushPromises();
-    const button = wrapper.findAll("button").find((item) => item.text() === "继续审批");
+    const button = wrapper.findAll("button").find((item) => item.text() === "繼續審批");
     expect(button?.attributes("disabled")).toBeDefined();
   });
 });

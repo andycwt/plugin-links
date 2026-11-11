@@ -47,7 +47,7 @@ async function handleSave() {
     await linksConsoleApiClient.group.sortLinkGroups({
       sortRequest: { names },
     });
-    Toast.success("保存成功");
+    Toast.success("儲存成功");
     modal.value?.close();
     queryClient.invalidateQueries({ queryKey: [QK_LINK_GROUPS] });
     queryClient.invalidateQueries({ queryKey: [QK_GROUPS_WITH_LINKS] });
@@ -58,7 +58,7 @@ async function handleSave() {
 </script>
 
 <template>
-  <VModal title="调整分组排序" ref="modal" :centered="false" :mount-to-body="true" :width="600" @close="emit('close')">
+  <VModal title="調整分組排序" ref="modal" :centered="false" :mount-to-body="true" :width="600" @close="emit('close')">
     <div>
       <VLoading v-if="isLoading" />
       <VueDraggable v-model="groups" class=":uno: rounded-base overflow-hidden border divide-y divide-gray-100">
@@ -76,8 +76,8 @@ async function handleSave() {
     </div>
     <template #footer>
       <VSpace>
-        <VButton type="secondary" :loading="isSubmitting" @click="handleSave">保存</VButton>
-        <VButton @click="modal?.close()">关闭</VButton>
+        <VButton type="secondary" :loading="isSubmitting" @click="handleSave">儲存</VButton>
+        <VButton @click="modal?.close()">關閉</VButton>
       </VSpace>
     </template>
   </VModal>

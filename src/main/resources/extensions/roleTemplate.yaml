@@ -5,8 +5,8 @@ metadata:
   labels:
     halo.run/role-template: "true"
   annotations:
-    rbac.authorization.halo.run/module: "链接"
-    rbac.authorization.halo.run/display-name: "链接查看"
+    rbac.authorization.halo.run/module: "連結"
+    rbac.authorization.halo.run/display-name: "連結檢視"
     rbac.authorization.halo.run/ui-permissions: |
       ["plugin:links:view"]
 rules:
@@ -49,8 +49,8 @@ metadata:
   labels:
     halo.run/role-template: "true"
   annotations:
-    rbac.authorization.halo.run/module: "链接"
-    rbac.authorization.halo.run/display-name: "链接管理"
+    rbac.authorization.halo.run/module: "連結"
+    rbac.authorization.halo.run/display-name: "連結管理"
     rbac.authorization.halo.run/ui-permissions: |
       ["plugin:links:manage"]
     rbac.authorization.halo.run/dependencies: |

@@ -61,7 +61,7 @@ const { mutate, isPending } = useMutation({
     });
   },
   onSuccess: (response, data) => {
-    Toast.success("创建链接成功");
+    Toast.success("建立連結成功");
     const linkName = response.data.metadata.name;
     modal.value?.close();
     queryClient.invalidateQueries({ queryKey: [QK_GROUPS_WITH_LINKS] });
@@ -82,7 +82,7 @@ function shouldRefreshFeedAfterSave(data: LinkFormState) {
 }
 
 const title = computed(() => {
-  return [`创建链接`, props.group?.spec?.displayName].filter(Boolean).join(" - ");
+  return [`建立連結`, props.group?.spec?.displayName].filter(Boolean).join(" - ");
 });
 </script>
 <template>
@@ -100,7 +100,7 @@ const title = computed(() => {
     <template #footer>
       <VSpace>
         <!-- @vue-ignore -->
-        <VButton :loading="isPending" type="secondary" @click="$formkit.submit('link-form')"> 保存 </VButton>
+        <VButton :loading="isPending" type="secondary" @click="$formkit.submit('link-form')"> 儲存 </VButton>
         <VButton @click="modal?.close()">取消</VButton>
       </VSpace>
     </template>

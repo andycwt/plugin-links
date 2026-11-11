@@ -122,19 +122,19 @@ const selectedUnreadCount = computed(() => {
 
 const selectedSourceTitle = computed(() => {
   if (!selectedLink.value) {
-    return "全部动态";
+    return "全部動態";
   }
   return selectedLink.value.spec?.displayName || selectedLink.value.metadata.name;
 });
 
 const selectedSourceMeta = computed(() => {
   if (!selectedLink.value) {
-    return `${allLinks.value.length} 个订阅 / ${totalFeedItemCount.value} 篇缓存 / ${totalUnreadCount.value} 篇未读`;
+    return `${allLinks.value.length} 個訂閱 / ${totalFeedItemCount.value} 篇快取 / ${totalUnreadCount.value} 篇未讀`;
   }
 
   const feedCount = selectedLink.value.spec?.rss?.feedUrls?.filter((feedUrl) => !!feedUrl?.trim()).length || 0;
   const itemCount = selectedLink.value.status?.rss?.itemCount || 0;
-  return `${feedCount} 个订阅源 / ${itemCount} 篇缓存 / ${selectedUnreadCount.value} 篇未读`;
+  return `${feedCount} 個訂閱源 / ${itemCount} 篇快取 / ${selectedUnreadCount.value} 篇未讀`;
 });
 
 const selectedSourceStatus = computed(() => {
@@ -146,7 +146,7 @@ const selectedSourceStatus = computed(() => {
 
 const markAllReadScopeLabel = computed(() => {
   if (!selectedLink.value) {
-    return "全部订阅";
+    return "全部訂閱";
   }
   return `「${selectedSourceTitle.value}」`;
 });
@@ -157,7 +157,7 @@ const isRemoteRefreshing = computed(() => {
 
 const currentRefreshButtonText = computed(() => {
   return refreshButtonText(
-    "获取当前",
+    "獲取當前",
     isRefreshingCurrentSubscription.value,
     currentRefreshCompletedCount.value,
     currentRefreshTotalCount.value,
@@ -166,7 +166,7 @@ const currentRefreshButtonText = computed(() => {
 
 const allRefreshButtonText = computed(() => {
   return refreshButtonText(
-    "获取全部",
+    "獲取全部",
     isRefreshingAllSubscriptions.value,
     allRefreshCompletedCount.value,
     allRefreshTotalCount.value,
@@ -176,13 +176,13 @@ const allRefreshButtonText = computed(() => {
 const refreshProgressText = computed(() => {
   if (isRefreshingCurrentSubscription.value) {
     return refreshProgressTextByCount(
-      "正在获取当前订阅",
+      "正在獲取當前訂閱",
       currentRefreshCompletedCount.value,
       currentRefreshTotalCount.value,
     );
   }
   if (isRefreshingAllSubscriptions.value) {
-    return refreshProgressTextByCount("正在获取全部订阅", allRefreshCompletedCount.value, allRefreshTotalCount.value);
+    return refreshProgressTextByCount("正在獲取全部訂閱", allRefreshCompletedCount.value, allRefreshTotalCount.value);
   }
   return "";
 });
@@ -212,13 +212,13 @@ function sourceLink(linkName?: string): Link | undefined {
 
 function sourceName(linkName?: string) {
   if (!linkName) {
-    return "未知来源";
+    return "未知來源";
   }
   const link = sourceLink(linkName);
   if (link) {
     return link.spec?.displayName || link.metadata.name;
   }
-  return isLoadingLinks.value ? "加载来源中" : "已删除链接";
+  return isLoadingLinks.value ? "載入來源中" : "已刪除連結";
 }
 
 function openReadLaterModal() {
@@ -278,8 +278,8 @@ function handleHideItem(item: LinkFeedItem) {
   const itemId = item.id;
 
   Dialog.warning({
-    title: "隐藏文章",
-    description: `确认隐藏「${title}」吗？隐藏后将从正常列表和公开订阅中移除，可在「已隐藏」中恢复。`,
+    title: "隱藏文章",
+    description: `確認隱藏「${title}」嗎？隱藏後將從正常列表和公開訂閱中移除，可在「已隱藏」中恢復。`,
     confirmType: "primary",
     onConfirm: async () => {
       const result = await setHiddenState([itemId], true);
@@ -298,8 +298,8 @@ function handleBatchHide() {
   }
 
   Dialog.warning({
-    title: "隐藏所选文章",
-    description: `确认隐藏所选的 ${selectedCount.value} 篇文章吗？隐藏后将从正常列表和公开订阅中移除，可在「已隐藏」中恢复。`,
+    title: "隱藏所選文章",
+    description: `確認隱藏所選的 ${selectedCount.value} 篇文章嗎？隱藏後將從正常列表和公開訂閱中移除，可在「已隱藏」中恢復。`,
     confirmType: "primary",
     onConfirm: async () => {
       const result = await setHiddenState(selectedIds.value, true);
@@ -314,10 +314,10 @@ function handleBatchHide() {
 
 function showHideSummary(updatedCount: number) {
   if (!updatedCount) {
-    Toast.info("所选文章已处于隐藏状态");
+    Toast.info("所選文章已處於隱藏狀態");
     return;
   }
-  Toast.success(`已隐藏 ${updatedCount} 篇文章`);
+  Toast.success(`已隱藏 ${updatedCount} 篇文章`);
 }
 
 async function handleRefreshCurrentSubscription() {
@@ -326,7 +326,7 @@ async function handleRefreshCurrentSubscription() {
   }
   const summary = await refreshCurrentSubscriptions(selectedLink.value);
   await reloadMainFeed();
-  showRefreshSummary(summary, "当前订阅");
+  showRefreshSummary(summary, "當前訂閱");
 }
 
 async function handleRefreshAllSubscriptions() {
@@ -335,7 +335,7 @@ async function handleRefreshAllSubscriptions() {
   }
   const summary = await refreshAllSubscriptions(allLinks.value);
   await reloadMainFeed();
-  showRefreshSummary(summary, "全部订阅");
+  showRefreshSummary(summary, "全部訂閱");
 }
 
 function handleMarkAllRead() {
@@ -344,8 +344,8 @@ function handleMarkAllRead() {
   }
 
   Dialog.warning({
-    title: "全部标为已读",
-    description: `确认将${markAllReadScopeLabel.value}中的所有未读文章标为已读吗？此操作会包含当前未加载的更早文章。`,
+    title: "全部標為已讀",
+    description: `確認將${markAllReadScopeLabel.value}中的所有未讀文章標為已讀嗎？此操作會包含當前未載入的更早文章。`,
     confirmType: "primary",
     onConfirm: async () => {
       const scopeLabel = markAllReadScopeLabel.value;
@@ -362,11 +362,11 @@ function showMarkAllReadSummary(summary: LinkFeedMarkAllReadSummary | undefined,
   }
 
   if (!summary.updatedCount) {
-    Toast.info(`${scopeLabel}中暂无未读文章`);
+    Toast.info(`${scopeLabel}中暫無未讀文章`);
     return;
   }
 
-  Toast.success(`已将${scopeLabel}中的 ${summary.updatedCount} 篇文章标为已读`);
+  Toast.success(`已將${scopeLabel}中的 ${summary.updatedCount} 篇文章標為已讀`);
 }
 
 function showRefreshSummary(summary: LinkFeedRefreshSummary | undefined, label: string) {
@@ -375,17 +375,17 @@ function showRefreshSummary(summary: LinkFeedRefreshSummary | undefined, label: 
   }
 
   if (!summary.failureCount && !summary.partialFailureCount) {
-    Toast.success(`${label}获取完成：成功获取 ${summary.successCount} 个订阅`);
+    Toast.success(`${label}獲取完成：成功獲取 ${summary.successCount} 個訂閱`);
     return;
   }
 
   const resultText = refreshSummaryText(summary);
   if (summary.failureCount === summary.totalCount) {
-    Toast.error(`${label}获取失败：${resultText}`);
+    Toast.error(`${label}獲取失敗：${resultText}`);
     return;
   }
 
-  Toast.warning(`${label}获取完成：${resultText}`);
+  Toast.warning(`${label}獲取完成：${resultText}`);
 }
 
 function refreshButtonText(label: string, refreshing: boolean, completedCount: number, totalCount: number) {
@@ -404,9 +404,9 @@ function refreshProgressTextByCount(label: string, completedCount: number, total
 
 function refreshSummaryText(summary: LinkFeedRefreshSummary) {
   return [
-    summary.successCount ? `成功 ${summary.successCount} 个` : "",
-    summary.partialFailureCount ? `部分失败 ${summary.partialFailureCount} 个` : "",
-    summary.failureCount ? `失败 ${summary.failureCount} 个` : "",
+    summary.successCount ? `成功 ${summary.successCount} 個` : "",
+    summary.partialFailureCount ? `部分失敗 ${summary.partialFailureCount} 個` : "",
+    summary.failureCount ? `失敗 ${summary.failureCount} 個` : "",
   ]
     .filter(Boolean)
     .join("，");
@@ -414,7 +414,7 @@ function refreshSummaryText(summary: LinkFeedRefreshSummary) {
 </script>
 
 <template>
-  <VPageHeader title="链接订阅">
+  <VPageHeader title="連結訂閱">
     <template #icon>
       <Rss2FillIcon />
     </template>
@@ -424,7 +424,7 @@ function refreshSummaryText(summary: LinkFeedRefreshSummary) {
           <template #icon>
             <CalendarTimeAddLineIcon />
           </template>
-          稍后阅读{{ readLaterCount !== undefined ? ` (${readLaterCount})` : "" }}
+          稍後閱讀{{ readLaterCount !== undefined ? ` (${readLaterCount})` : "" }}
         </VButton>
         <VButton size="sm" @click="openFavoriteModal">
           <template #icon>
@@ -436,13 +436,13 @@ function refreshSummaryText(summary: LinkFeedRefreshSummary) {
           <template #icon>
             <EyeCloseLineIcon />
           </template>
-          已隐藏{{ hiddenCount !== undefined ? ` (${hiddenCount})` : "" }}
+          已隱藏{{ hiddenCount !== undefined ? ` (${hiddenCount})` : "" }}
         </VButton>
         <VButton size="sm" @click="router.push({ name: 'Links' })">
           <template #icon>
             <IconArrowLeft />
           </template>
-          返回链接
+          返回連結
         </VButton>
       </VSpace>
     </template>
@@ -461,7 +461,7 @@ function refreshSummaryText(summary: LinkFeedRefreshSummary) {
       <div class=":uno: feed-main">
         <div class=":uno: feed-brief">
           <div class=":uno: feed-brief__copy">
-            <span class=":uno: feed-brief__eyebrow">RSS 动态</span>
+            <span class=":uno: feed-brief__eyebrow">RSS 動態</span>
             <div class=":uno: feed-brief__heading">
               <strong class=":uno: feed-brief__title">{{ selectedSourceTitle }}</strong>
               <LinkFeedStatusBadge
@@ -482,13 +482,13 @@ function refreshSummaryText(summary: LinkFeedRefreshSummary) {
           <LinkFeedReadStatusTabs :selected-status="selectedReadStatus" @select="selectReadStatus" />
           <div class=":uno: feed-toolbar__actions">
             <VSpace v-if="selectionMode && canManageHiddenState" class=":uno: flex-wrap">
-              <span class=":uno: feed-selection-status" role="status">已选 {{ selectedCount }} 篇</span>
+              <span class=":uno: feed-selection-status" role="status">已選 {{ selectedCount }} 篇</span>
               <VButton size="sm" ghost :disabled="!mainItems.length || allLoadedSelected" @click="selectAllLoaded">
-                全选已加载
+                全選已載入
               </VButton>
               <VButton size="sm" ghost @click="exitSelectionMode">取消</VButton>
               <VButton size="sm" :disabled="!selectedCount" :loading="isUpdatingHiddenState" @click="handleBatchHide">
-                隐藏所选{{ selectedCount ? ` (${selectedCount})` : "" }}
+                隱藏所選{{ selectedCount ? ` (${selectedCount})` : "" }}
               </VButton>
             </VSpace>
             <VSpace v-else class=":uno: flex-wrap">
@@ -523,20 +523,20 @@ function refreshSummaryText(summary: LinkFeedRefreshSummary) {
                 <template #icon>
                   <MailOpenLineIcon />
                 </template>
-                全部标为已读
+                全部標為已讀
               </VButton>
               <VButton v-if="canManageHiddenState" size="sm" :disabled="!mainItems.length" @click="enterSelectionMode">
                 <template #icon>
                   <MultiselectLineIcon />
                 </template>
-                批量选择
+                批次選擇
               </VButton>
             </VSpace>
             <VButton size="sm" ghost :loading="isFetching" @click="reloadMainFeed()">
               <template #icon>
                 <IconRefreshLine />
               </template>
-              刷新列表
+              重新整理列表
             </VButton>
           </div>
         </div>
@@ -544,7 +544,7 @@ function refreshSummaryText(summary: LinkFeedRefreshSummary) {
         <LinkFeedItemList
           :feed="mainFeed"
           :source-name="sourceName"
-          empty-text="暂无订阅动态"
+          empty-text="暫無訂閱動態"
           :selectable="selectionMode && canManageHiddenState"
           :selected-ids="selectedIds"
           :hideable="canManageHiddenState"
@@ -559,10 +559,10 @@ function refreshSummaryText(summary: LinkFeedRefreshSummary) {
 
   <LinkFeedItemsModal
     v-if="readLaterModalVisible"
-    title="稍后阅读"
+    title="稍後閱讀"
     :feed="readLaterFeed"
     :source-name="sourceName"
-    empty-text="暂无稍后阅读文章"
+    empty-text="暫無稍後閱讀文章"
     @close="readLaterModalVisible = false"
   />
 
@@ -571,7 +571,7 @@ function refreshSummaryText(summary: LinkFeedRefreshSummary) {
     title="收藏文章"
     :feed="favoriteFeed"
     :source-name="sourceName"
-    empty-text="暂无收藏文章"
+    empty-text="暫無收藏文章"
     item-action-mode="favorite-only"
     @close="favoriteModalVisible = false"
   />

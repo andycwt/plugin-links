@@ -44,12 +44,12 @@ describe("LinkFeedHiddenItemsModal", () => {
     mountModal(fakeFeed({ items: [feedItem({ id: "item-1" })] }));
     await nextTick();
 
-    modalButton("恢复显示")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    modalButton("恢復顯示")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await flushPromises();
 
     expect(dialogSpy).not.toHaveBeenCalled();
     expect(hiddenStateMocks.setHiddenState).toHaveBeenCalledWith(["item-1"], false);
-    expect(toastSpy).toHaveBeenCalledWith("已恢复 1 篇文章");
+    expect(toastSpy).toHaveBeenCalledWith("已恢復 1 篇文章");
   });
 
   it("selects all loaded items only", async () => {
@@ -60,13 +60,13 @@ describe("LinkFeedHiddenItemsModal", () => {
     mountModal(feed);
     await nextTick();
 
-    modalButton("全选已加载")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    modalButton("全選已載入")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await nextTick();
 
     const checkboxes = Array.from(modalRoot().querySelectorAll<HTMLInputElement>('input[type="checkbox"]'));
     expect(checkboxes).toHaveLength(2);
     expect(checkboxes.every((checkbox) => checkbox.checked)).toBe(true);
-    expect(modalRoot().textContent).toContain("已选 2 篇");
+    expect(modalRoot().textContent).toContain("已選 2 篇");
   });
 
   it("confirms batch unhide with the selected scope and clears the selection", async () => {
@@ -79,23 +79,23 @@ describe("LinkFeedHiddenItemsModal", () => {
     mountModal(feed);
     await nextTick();
 
-    modalButton("全选已加载")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    modalButton("全選已載入")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await nextTick();
-    modalButton("恢复所选")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    modalButton("恢復所選")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await nextTick();
 
     expect(dialogSpy).toHaveBeenCalledTimes(1);
     const dialogOptions = dialogSpy.mock.calls[0][0] as { description?: string; onConfirm?: () => Promise<void> };
-    expect(dialogOptions.description).toContain("2 篇已隐藏文章");
+    expect(dialogOptions.description).toContain("2 篇已隱藏文章");
     expect(hiddenStateMocks.setHiddenState).not.toHaveBeenCalled();
 
     await dialogOptions.onConfirm?.();
     await flushPromises();
 
     expect(hiddenStateMocks.setHiddenState).toHaveBeenCalledWith(["item-1", "item-2"], false);
-    expect(toastSpy).toHaveBeenCalledWith("已恢复 2 篇文章");
-    expect(modalRoot().textContent).toContain("勾选文章后可批量恢复");
-    expect(modalRoot().textContent).not.toContain("已选 2 篇");
+    expect(toastSpy).toHaveBeenCalledWith("已恢復 2 篇文章");
+    expect(modalRoot().textContent).toContain("勾選文章後可批次恢復");
+    expect(modalRoot().textContent).not.toContain("已選 2 篇");
   });
 
   it("keeps the selection when the batch unhide request fails", async () => {
@@ -104,15 +104,15 @@ describe("LinkFeedHiddenItemsModal", () => {
     mountModal(fakeFeed({ items: [feedItem({ id: "item-1" })] }));
     await nextTick();
 
-    modalButton("全选已加载")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    modalButton("全選已載入")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await nextTick();
-    modalButton("恢复所选")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    modalButton("恢復所選")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await nextTick();
     const dialogOptions = dialogSpy.mock.calls[0][0] as { onConfirm?: () => Promise<void> };
     await dialogOptions.onConfirm?.();
     await flushPromises();
 
-    expect(modalRoot().textContent).toContain("已选 1 篇");
+    expect(modalRoot().textContent).toContain("已選 1 篇");
   });
 
   it("clears the selection when the list is reloaded", async () => {
@@ -120,29 +120,29 @@ describe("LinkFeedHiddenItemsModal", () => {
     mountModal(feed);
     await nextTick();
 
-    modalButton("全选已加载")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    modalButton("全選已載入")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await nextTick();
-    expect(modalRoot().textContent).toContain("已选 1 篇");
+    expect(modalRoot().textContent).toContain("已選 1 篇");
 
-    modalButton("取消选择")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    modalButton("取消選擇")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await nextTick();
-    expect(modalRoot().textContent).not.toContain("已选 1 篇");
+    expect(modalRoot().textContent).not.toContain("已選 1 篇");
 
-    modalButton("全选已加载")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    modalButton("全選已載入")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await nextTick();
-    modalButton("重新加载")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    modalButton("重新載入")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await flushPromises();
 
     expect(feed.reload).toHaveBeenCalledTimes(1);
-    expect(modalRoot().textContent).not.toContain("已选 1 篇");
+    expect(modalRoot().textContent).not.toContain("已選 1 篇");
   });
 
   it("disables batch actions when nothing is selected", async () => {
     mountModal(fakeFeed({ items: [feedItem({ id: "item-1" })] }));
     await nextTick();
 
-    expect((modalButton("恢复所选") as HTMLButtonElement).disabled).toBe(true);
-    expect((modalButton("取消选择") as HTMLButtonElement).disabled).toBe(true);
+    expect((modalButton("恢復所選") as HTMLButtonElement).disabled).toBe(true);
+    expect((modalButton("取消選擇") as HTMLButtonElement).disabled).toBe(true);
   });
 
   it("keeps hidden items read-only without manage permission", async () => {
@@ -150,10 +150,10 @@ describe("LinkFeedHiddenItemsModal", () => {
     await nextTick();
 
     expect(modalRoot().querySelector('input[type="checkbox"]')).toBeNull();
-    expect(modalButton("恢复显示")).toBeUndefined();
-    expect(modalButton("恢复所选")).toBeUndefined();
+    expect(modalButton("恢復顯示")).toBeUndefined();
+    expect(modalButton("恢復所選")).toBeUndefined();
     expect(modalRoot().textContent).toContain("已收藏");
-    expect(modalRoot().textContent).toContain("稍后阅读");
+    expect(modalRoot().textContent).toContain("稍後閱讀");
     expect(modalRoot().querySelector("a.feed-item__title--link")).not.toBeNull();
   });
 });

@@ -52,8 +52,8 @@ describe("LinkEditingModal RSS unsubscribe", () => {
       description?: string;
       onConfirm?: () => Promise<void> | void;
     };
-    expect(options.description).toContain("收藏、稍后阅读和已隐藏");
-    expect(options.description).toContain("永久删除");
+    expect(options.description).toContain("收藏、稍後閱讀和已隱藏");
+    expect(options.description).toContain("永久刪除");
     expect(componentMocks.patchLink).not.toHaveBeenCalled();
 
     await options.onConfirm?.();

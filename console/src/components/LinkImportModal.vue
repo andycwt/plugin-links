@@ -25,7 +25,7 @@ const isImporting = shallowRef(false);
 async function handleSubmit(data: LinkImportSubmitData) {
   const items = data.items;
   if (items.length === 0) {
-    Toast.warning("没有可导入的链接");
+    Toast.warning("沒有可匯入的連結");
     return;
   }
 
@@ -66,7 +66,7 @@ async function handleSubmit(data: LinkImportSubmitData) {
       );
     }
 
-    Toast.success(`成功导入 ${items.length} 个链接`);
+    Toast.success(`成功匯入 ${items.length} 個連結`);
     queryClient.invalidateQueries({ queryKey: [QK_GROUPS_WITH_LINKS] });
     modal.value?.close();
   } catch {
@@ -78,7 +78,7 @@ async function handleSubmit(data: LinkImportSubmitData) {
 </script>
 
 <template>
-  <VModal :centered="false" title="批量导入链接" ref="modal" :mount-to-body="true" :width="860" @close="emit('close')">
+  <VModal :centered="false" title="批次匯入連結" ref="modal" :mount-to-body="true" :width="860" @close="emit('close')">
     <LinkImportBody :group="group" :is-importing="isImporting" @submit="handleSubmit" />
   </VModal>
 </template>

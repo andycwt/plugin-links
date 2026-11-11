@@ -40,7 +40,7 @@ const { mutate, isPending } = useMutation({
     });
   },
   onSuccess: () => {
-    Toast.success("编辑分组成功");
+    Toast.success("編輯分組成功");
     modal.value?.close();
     queryClient.invalidateQueries({ queryKey: [QK_LINK_GROUPS] });
     queryClient.invalidateQueries({ queryKey: [QK_GROUPS_WITH_LINKS] });
@@ -52,7 +52,7 @@ function onSubmit(data: GroupFormState) {
 }
 </script>
 <template>
-  <VModal :centered="false" title="编辑分组" ref="modal" :mount-to-body="true" :width="600" @close="emit('close')">
+  <VModal :centered="false" title="編輯分組" ref="modal" :mount-to-body="true" :width="600" @close="emit('close')">
     <GroupForm
       :name="group.metadata.name"
       :formState="{
@@ -65,7 +65,7 @@ function onSubmit(data: GroupFormState) {
     <template #footer>
       <VSpace>
         <!-- @vue-ignore -->
-        <VButton :loading="isPending" type="secondary" @click="$formkit.submit('group-form')"> 保存 </VButton>
+        <VButton :loading="isPending" type="secondary" @click="$formkit.submit('group-form')"> 儲存 </VButton>
         <VButton @click="modal?.close()">取消</VButton>
       </VSpace>
     </template>

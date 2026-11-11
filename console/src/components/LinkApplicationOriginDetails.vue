@@ -28,12 +28,12 @@ const commentContent = computed(() => htmlToPlainText(originComment.value?.raw |
     v-if="origin.type === 'COMMENT'"
     class=":uno: border border-gray-200 rounded-lg bg-gray-50/70 p-3.5 space-y-3"
   >
-    <h3 class=":uno: text-sm text-gray-900 font-medium">评论识别信息</h3>
+    <h3 class=":uno: text-sm text-gray-900 font-medium">評論識別資訊</h3>
 
-    <p v-if="isLoading" class=":uno: text-sm text-gray-500">正在加载评论...</p>
-    <p v-else-if="errorState === 'forbidden'" class=":uno: text-sm text-gray-500">当前账号没有查看来源评论的权限</p>
-    <p v-else-if="errorState === 'error'" class=":uno: text-sm text-gray-500">来源评论加载失败，请稍后重试</p>
-    <p v-else-if="!originComment" class=":uno: text-sm text-gray-500">原评论不可用（可能已被删除）</p>
+    <p v-if="isLoading" class=":uno: text-sm text-gray-500">正在載入評論...</p>
+    <p v-else-if="errorState === 'forbidden'" class=":uno: text-sm text-gray-500">當前賬號沒有檢視來源評論的許可權</p>
+    <p v-else-if="errorState === 'error'" class=":uno: text-sm text-gray-500">來源評論載入失敗，請稍後重試</p>
+    <p v-else-if="!originComment" class=":uno: text-sm text-gray-500">原評論不可用（可能已被刪除）</p>
 
     <template v-else>
       <blockquote
@@ -54,10 +54,10 @@ const commentContent = computed(() => htmlToPlainText(originComment.value?.raw |
           {{ subject.label }}
           <IconExternalLinkLine class=":uno: h-3 w-3 shrink-0" />
         </a>
-        <span v-else>来源页面不可用</span>
-        <span v-if="originComment.creationTime">评论于 {{ utils.date.format(originComment.creationTime) }}</span>
+        <span v-else>來源頁面不可用</span>
+        <span v-if="originComment.creationTime">評論於 {{ utils.date.format(originComment.creationTime) }}</span>
         <RouterLink v-if="commentRoute" :to="commentRoute" class=":uno: text-blue-600 hover:underline">
-          打开评论管理
+          開啟評論管理
         </RouterLink>
       </div>
     </template>

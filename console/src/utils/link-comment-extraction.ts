@@ -24,7 +24,7 @@ export function applyLinkCommentExtraction(
   if (isHttpUrl(extraction.url)) {
     target.url = extraction.url;
   } else if (extraction.url) {
-    warnings.push("AI 提取的网站地址格式不正确，已忽略");
+    warnings.push("AI 提取的網站地址格式不正確，已忽略");
   }
 
   if (extraction.displayName) {
@@ -34,7 +34,7 @@ export function applyLinkCommentExtraction(
   if (isHttpUrl(extraction.logo)) {
     target.logo = extraction.logo;
   } else if (extraction.logo) {
-    warnings.push("AI 提取的 Logo 地址格式不正确，已忽略");
+    warnings.push("AI 提取的 Logo 地址格式不正確，已忽略");
   }
 
   if (extraction.description) {
@@ -45,7 +45,7 @@ export function applyLinkCommentExtraction(
     target.rss.enabled = true;
     target.rss.feedUrls = normalizeFeedUrls([...target.rss.feedUrls, extraction.rssUrl]);
   } else if (extraction.rssUrl) {
-    warnings.push("AI 提取的 RSS 地址格式不正确，已忽略");
+    warnings.push("AI 提取的 RSS 地址格式不正確，已忽略");
   }
 
   return { warnings };

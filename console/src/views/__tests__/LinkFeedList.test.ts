@@ -100,12 +100,12 @@ describe("LinkFeedList hidden workflows", () => {
   it("shows all exact item counts in the existing header order", () => {
     mountView();
 
-    const entry = viewButton("已隐藏");
+    const entry = viewButton("已隱藏");
     const favoriteEntry = viewButton("收藏");
-    const readLaterEntry = viewButton("稍后阅读");
-    expect(readLaterEntry?.textContent).toContain("稍后阅读 (4)");
+    const readLaterEntry = viewButton("稍後閱讀");
+    expect(readLaterEntry?.textContent).toContain("稍後閱讀 (4)");
     expect(favoriteEntry?.textContent).toContain("收藏 (5)");
-    expect(entry?.textContent).toContain("已隐藏 (3)");
+    expect(entry?.textContent).toContain("已隱藏 (3)");
     const buttons = Array.from(viewRoot().querySelectorAll<HTMLButtonElement>("button"));
     expect(buttons.indexOf(readLaterEntry!)).toBeLessThan(buttons.indexOf(favoriteEntry!));
     expect(buttons.indexOf(favoriteEntry!)).toBeLessThan(buttons.indexOf(entry!));
@@ -116,9 +116,9 @@ describe("LinkFeedList hidden workflows", () => {
 
     mountView();
 
-    expect(viewButton("稍后阅读")?.textContent).toContain("稍后阅读 (0)");
+    expect(viewButton("稍後閱讀")?.textContent).toContain("稍後閱讀 (0)");
     expect(viewButton("收藏")?.textContent).toContain("收藏 (0)");
-    expect(viewButton("已隐藏")?.textContent).toContain("已隐藏 (0)");
+    expect(viewButton("已隱藏")?.textContent).toContain("已隱藏 (0)");
   });
 
   it("shows zero placeholders while pending and keeps labels usable when unavailable", () => {
@@ -127,18 +127,18 @@ describe("LinkFeedList hidden workflows", () => {
 
     mountView();
 
-    expect(viewButton("稍后阅读")?.textContent?.trim()).toBe("稍后阅读 (0)");
+    expect(viewButton("稍後閱讀")?.textContent?.trim()).toBe("稍後閱讀 (0)");
     expect(viewButton("收藏")?.textContent?.trim()).toBe("收藏 (0)");
-    expect(viewButton("已隐藏")?.textContent?.trim()).toBe("已隐藏 (0)");
+    expect(viewButton("已隱藏")?.textContent?.trim()).toBe("已隱藏 (0)");
 
     mountedWrapper?.unmount();
     viewMocks.itemSummaryFetching.value = false;
     viewMocks.itemSummaryError.value = true;
     mountView();
 
-    expect(viewButton("稍后阅读")?.textContent?.trim()).toBe("稍后阅读");
+    expect(viewButton("稍後閱讀")?.textContent?.trim()).toBe("稍後閱讀");
     expect(viewButton("收藏")?.textContent?.trim()).toBe("收藏");
-    expect(viewButton("已隐藏")?.textContent?.trim()).toBe("已隐藏");
+    expect(viewButton("已隱藏")?.textContent?.trim()).toBe("已隱藏");
   });
 
   it("preserves resolved counts during a background refetch", () => {
@@ -146,9 +146,9 @@ describe("LinkFeedList hidden workflows", () => {
 
     mountView();
 
-    expect(viewButton("稍后阅读")?.textContent?.trim()).toBe("稍后阅读 (4)");
+    expect(viewButton("稍後閱讀")?.textContent?.trim()).toBe("稍後閱讀 (4)");
     expect(viewButton("收藏")?.textContent?.trim()).toBe("收藏 (5)");
-    expect(viewButton("已隐藏")?.textContent?.trim()).toBe("已隐藏 (3)");
+    expect(viewButton("已隱藏")?.textContent?.trim()).toBe("已隱藏 (3)");
   });
 
   it("keeps hidden items visible but hides mutation controls without manage permission", async () => {
@@ -157,9 +157,9 @@ describe("LinkFeedList hidden workflows", () => {
     mountView();
     await nextTick();
 
-    expect(viewButton("已隐藏")).toBeDefined();
-    expect(viewButton("批量选择")).toBeUndefined();
-    expect(viewButton("隐藏文章")).toBeUndefined();
+    expect(viewButton("已隱藏")).toBeDefined();
+    expect(viewButton("批次選擇")).toBeUndefined();
+    expect(viewButton("隱藏文章")).toBeUndefined();
   });
 
   it("hides a single item after confirmation", async () => {
@@ -169,7 +169,7 @@ describe("LinkFeedList hidden workflows", () => {
     mountView();
     await nextTick();
 
-    viewButton("隐藏文章")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    viewButton("隱藏文章")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await nextTick();
 
     expect(dialogSpy).toHaveBeenCalledTimes(1);
@@ -181,7 +181,7 @@ describe("LinkFeedList hidden workflows", () => {
     await flushPromises();
 
     expect(viewMocks.setHiddenState).toHaveBeenCalledWith(["item-1"], true);
-    expect(toastSpy).toHaveBeenCalledWith("已隐藏 1 篇文章");
+    expect(toastSpy).toHaveBeenCalledWith("已隱藏 1 篇文章");
   });
 
   it("supports batch hide mode with select-all-loaded, confirmation and cleanup", async () => {
@@ -192,22 +192,22 @@ describe("LinkFeedList hidden workflows", () => {
 
     expect(document.querySelectorAll('input[type="checkbox"]')).toHaveLength(0);
 
-    expect(viewButton("批量选择")).toBeDefined();
-    expect(viewButton("批量隐藏")).toBeUndefined();
-    viewButton("批量选择")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    expect(viewButton("批次選擇")).toBeDefined();
+    expect(viewButton("批次隱藏")).toBeUndefined();
+    viewButton("批次選擇")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await nextTick();
 
     expect(document.querySelectorAll('input[type="checkbox"]')).toHaveLength(2);
-    expect(viewButton("隐藏所选")?.textContent).toContain("隐藏所选");
+    expect(viewButton("隱藏所選")?.textContent).toContain("隱藏所選");
 
-    viewButton("全选已加载")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    viewButton("全選已載入")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await nextTick();
 
     const checkboxes = Array.from(document.querySelectorAll<HTMLInputElement>('input[type="checkbox"]'));
     expect(checkboxes.every((checkbox) => checkbox.checked)).toBe(true);
-    expect(viewRoot().textContent).toContain("已选 2 篇");
+    expect(viewRoot().textContent).toContain("已選 2 篇");
 
-    viewButton("隐藏所选")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    viewButton("隱藏所選")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await nextTick();
 
     expect(dialogSpy).toHaveBeenCalledTimes(1);
@@ -219,8 +219,8 @@ describe("LinkFeedList hidden workflows", () => {
     await flushPromises();
 
     expect(viewMocks.setHiddenState).toHaveBeenCalledWith(["item-1", "item-2"], true);
-    expect(toastSpy).toHaveBeenCalledWith("已隐藏 2 篇文章");
-    expect(viewButton("批量选择")).toBeDefined();
+    expect(toastSpy).toHaveBeenCalledWith("已隱藏 2 篇文章");
+    expect(viewButton("批次選擇")).toBeDefined();
     expect(document.querySelectorAll('input[type="checkbox"]')).toHaveLength(0);
   });
 
@@ -229,7 +229,7 @@ describe("LinkFeedList hidden workflows", () => {
     mountView();
     await nextTick();
 
-    viewButton("批量选择")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    viewButton("批次選擇")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await nextTick();
     viewButton("取消")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await nextTick();
@@ -243,19 +243,19 @@ describe("LinkFeedList hidden workflows", () => {
     mountView();
     await nextTick();
 
-    viewButton("批量选择")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    viewButton("批次選擇")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await nextTick();
-    viewButton("全选已加载")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    viewButton("全選已載入")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await nextTick();
-    expect(viewRoot().textContent).toContain("已选 2 篇");
+    expect(viewRoot().textContent).toContain("已選 2 篇");
 
     const unreadTab = Array.from(document.querySelectorAll<HTMLButtonElement>(".feed-status-tabs__item")).find((tab) =>
-      tab.textContent?.includes("未读"),
+      tab.textContent?.includes("未讀"),
     );
     unreadTab?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await nextTick();
 
-    expect(viewRoot().textContent).toContain("已选 0 篇");
+    expect(viewRoot().textContent).toContain("已選 0 篇");
     const checkboxes = Array.from(document.querySelectorAll<HTMLInputElement>('input[type="checkbox"]'));
     expect(checkboxes.every((checkbox) => !checkbox.checked)).toBe(true);
   });
@@ -264,16 +264,16 @@ describe("LinkFeedList hidden workflows", () => {
     mountView();
     await nextTick();
 
-    viewButton("批量选择")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    viewButton("批次選擇")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await nextTick();
-    viewButton("全选已加载")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    viewButton("全選已載入")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await nextTick();
 
-    viewButton("刷新列表")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    viewButton("重新整理列表")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await flushPromises();
 
     expect(viewMocks.mainFeed?.reload).toHaveBeenCalledTimes(1);
-    expect(viewRoot().textContent).toContain("已选 0 篇");
+    expect(viewRoot().textContent).toContain("已選 0 篇");
   });
 });
 

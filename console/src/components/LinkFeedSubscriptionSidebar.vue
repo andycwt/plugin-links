@@ -28,7 +28,7 @@ function unreadCount(link: Link) {
 function linkSubtitle(link: Link) {
   const feedUrls = rssFeedUrls(link);
   if (feedUrls.length > 1) {
-    return `${feedUrls.length} 个订阅源`;
+    return `${feedUrls.length} 個訂閱源`;
   }
   return link.spec?.url || feedUrls[0];
 }
@@ -46,12 +46,12 @@ function itemCountText(count?: number) {
     <div class=":uno: subscription-panel__header">
       <div class=":uno: subscription-panel__title">
         <span>RSS</span>
-        <strong>订阅</strong>
+        <strong>訂閱</strong>
       </div>
       <span class=":uno: subscription-count">{{ links.length }}</span>
     </div>
 
-    <div v-if="loading && !links.length" class=":uno: subscription-empty">加载订阅中...</div>
+    <div v-if="loading && !links.length" class=":uno: subscription-empty">載入訂閱中...</div>
 
     <div v-else class=":uno: subscription-list">
       <button
@@ -67,8 +67,8 @@ function itemCountText(count?: number) {
           <Rss2FillIcon class=":uno: subscription-avatar__icon" />
         </span>
         <span class=":uno: subscription-item__content">
-          <span class=":uno: subscription-item__title">全部动态</span>
-          <span class=":uno: subscription-item__subtitle">所有订阅源</span>
+          <span class=":uno: subscription-item__title">全部動態</span>
+          <span class=":uno: subscription-item__subtitle">所有訂閱源</span>
         </span>
         <span
           class=":uno: subscription-item__count"
@@ -103,9 +103,9 @@ function itemCountText(count?: number) {
       </button>
 
       <div v-if="!links.length" class=":uno: flex items-center justify-center">
-        <div class=":uno: subscription-empty">暂无已订阅链接</div>
+        <div class=":uno: subscription-empty">暫無已訂閱連結</div>
         <IconInformation
-          v-tooltip="`需要在具体的链接中启用 RSS 订阅并添加链接`"
+          v-tooltip="`需要在具體的連結中啟用 RSS 訂閱並新增連結`"
           class=":uno: size-4 text-gray-500 hover:text-gray-900"
         />
       </div>

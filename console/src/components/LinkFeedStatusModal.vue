@@ -52,7 +52,7 @@ const selectedLink = computed(() => {
 });
 
 const isAggregate = computed(() => !selectedLink.value);
-const modalTitle = computed(() => (isAggregate.value ? "全部订阅状态" : `${linkTitle(selectedLink.value!)} 状态`));
+const modalTitle = computed(() => (isAggregate.value ? "全部訂閱狀態" : `${linkTitle(selectedLink.value!)} 狀態`));
 const aggregateStatus = computed(() => aggregateLinkFeedStatusMeta(props.links));
 const selectedStatus = computed(() =>
   selectedLink.value ? linkFeedStatusMeta(selectedLink.value) : aggregateStatus.value,
@@ -70,10 +70,10 @@ const selectedOverviewDetails = computed<DetailItem[]>(() => {
   }
   const rss = link.status?.rss;
   return [
-    { label: "订阅源数量", value: `${rssFeedUrls(link).length}` },
-    { label: "缓存文章", value: `${rss?.itemCount || 0}` },
-    { label: "未读文章", value: `${selectedUnreadCount.value}` },
-    { label: "失败次数", value: `${rss?.failureCount || 0}` },
+    { label: "訂閱源數量", value: `${rssFeedUrls(link).length}` },
+    { label: "快取文章", value: `${rss?.itemCount || 0}` },
+    { label: "未讀文章", value: `${selectedUnreadCount.value}` },
+    { label: "失敗次數", value: `${rss?.failureCount || 0}` },
   ];
 });
 
@@ -84,18 +84,18 @@ const selectedActivityDetails = computed<DetailItem[]>(() => {
   }
   const rss = link.status?.rss;
   return [
-    { label: "最近获取", value: formatDate(rss?.lastFetchedAt) },
+    { label: "最近獲取", value: formatDate(rss?.lastFetchedAt) },
     { label: "最近成功", value: formatDate(rss?.lastSuccessAt) },
     { label: "最新文章", value: formatDate(rss?.latestPublishedAt) },
-    { label: "最后错误", value: rss?.lastError || "无" },
+    { label: "最後錯誤", value: rss?.lastError || "無" },
   ];
 });
 
 const aggregateDetails = computed<DetailItem[]>(() => [
-  { label: "订阅数量", value: `${props.links.length}` },
-  { label: "缓存文章", value: `${totalItemCount.value}` },
-  { label: "未读文章", value: `${totalUnreadCount.value}` },
-  { label: "需关注", value: `${props.links.filter((link) => linkFeedStatusMeta(link).state !== "success").length}` },
+  { label: "訂閱數量", value: `${props.links.length}` },
+  { label: "快取文章", value: `${totalItemCount.value}` },
+  { label: "未讀文章", value: `${totalUnreadCount.value}` },
+  { label: "需關注", value: `${props.links.filter((link) => linkFeedStatusMeta(link).state !== "success").length}` },
 ]);
 
 const feedDetails = computed<FeedDetail[]>(() => {
@@ -113,12 +113,12 @@ const feedDetails = computed<FeedDetail[]>(() => {
       tone: feedStatusTone(status),
       label: feedStatusLabel(status),
       items: [
-        { label: "最近获取", value: formatDate(status.lastFetchedAt) },
+        { label: "最近獲取", value: formatDate(status.lastFetchedAt) },
         { label: "最近成功", value: formatDate(status.lastSuccessAt) },
         { label: "最新文章", value: formatDate(status.latestPublishedAt) },
-        { label: "缓存文章", value: `${status.itemCount || 0}` },
-        { label: "失败次数", value: `${status.failureCount || 0}` },
-        { label: "最后错误", value: status.lastError || "无" },
+        { label: "快取文章", value: `${status.itemCount || 0}` },
+        { label: "失敗次數", value: `${status.failureCount || 0}` },
+        { label: "最後錯誤", value: status.lastError || "無" },
       ],
     };
   });
@@ -142,7 +142,7 @@ const subscriptionsNeedingAttention = computed<AttentionDetail[]>(() => {
 
 function formatDate(value?: string) {
   if (!value) {
-    return "无";
+    return "無";
   }
   return utils.date.format(value);
 }
@@ -159,12 +159,12 @@ function feedStatusTone(status: RssFeedStatus): LinkFeedStatusTone {
 
 function feedStatusLabel(status: RssFeedStatus) {
   if (status.lastError) {
-    return "获取失败";
+    return "獲取失敗";
   }
   if (status.lastSuccessAt) {
     return "正常";
   }
-  return "等待获取";
+  return "等待獲取";
 }
 </script>
 
@@ -192,7 +192,7 @@ function feedStatusLabel(status: RssFeedStatus) {
 
       <section class=":uno: feed-status-modal__section">
         <div class=":uno: feed-status-modal__section-heading">
-          <h3 class=":uno: feed-status-modal__section-title">{{ isAggregate ? "汇总" : "订阅信息" }}</h3>
+          <h3 class=":uno: feed-status-modal__section-title">{{ isAggregate ? "彙總" : "訂閱資訊" }}</h3>
         </div>
         <dl class=":uno: feed-status-modal__metrics">
           <div v-for="item in isAggregate ? aggregateDetails : selectedOverviewDetails" :key="item.label">
@@ -204,7 +204,7 @@ function feedStatusLabel(status: RssFeedStatus) {
 
       <section v-if="selectedLink" class=":uno: feed-status-modal__section">
         <div class=":uno: feed-status-modal__section-heading">
-          <h3 class=":uno: feed-status-modal__section-title">运行状态</h3>
+          <h3 class=":uno: feed-status-modal__section-title">執行狀態</h3>
         </div>
         <dl class=":uno: feed-status-modal__detail-list">
           <div v-for="item in selectedActivityDetails" :key="item.label">
@@ -217,8 +217,8 @@ function feedStatusLabel(status: RssFeedStatus) {
       <section v-if="selectedLink" class=":uno: feed-status-modal__section">
         <div class=":uno: feed-status-modal__section-heading">
           <h3 class=":uno: feed-status-modal__section-title">
-            订阅源
-            <span class=":uno: feed-status-modal__section-note">{{ feedDetails.length }} 个源</span>
+            訂閱源
+            <span class=":uno: feed-status-modal__section-note">{{ feedDetails.length }} 個源</span>
           </h3>
         </div>
         <div class=":uno: feed-status-modal__feeds">
@@ -240,7 +240,7 @@ function feedStatusLabel(status: RssFeedStatus) {
 
       <section v-else class=":uno: feed-status-modal__section">
         <div class=":uno: feed-status-modal__section-heading">
-          <h3 class=":uno: feed-status-modal__section-title">需要关注</h3>
+          <h3 class=":uno: feed-status-modal__section-title">需要關注</h3>
         </div>
         <div v-if="subscriptionsNeedingAttention.length" class=":uno: feed-status-modal__feeds">
           <article
@@ -258,14 +258,14 @@ function feedStatusLabel(status: RssFeedStatus) {
         </div>
         <p v-else class=":uno: feed-status-modal__empty">
           <span class=":uno: feed-status-modal__dot feed-status-modal__dot--success" aria-hidden="true"></span>
-          所有订阅最近均成功获取
+          所有訂閱最近均成功獲取
         </p>
       </section>
     </div>
 
     <template #footer>
       <VSpace>
-        <VButton @click="modal?.close()">关闭</VButton>
+        <VButton @click="modal?.close()">關閉</VButton>
       </VSpace>
     </template>
   </VModal>
